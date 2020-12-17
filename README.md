@@ -10,6 +10,7 @@ View live at https://picturn.herokuapp.com
 Git, Maven, and Eclipse EE are required to install and edit the project.
 
 *Git is available to download at https://git-scm.com/downloads*
+
 *Maven comes with Eclipse EE and can be downloaded at https://www.eclipse.org/downloads*
 
 ### Clone the repository using Git
