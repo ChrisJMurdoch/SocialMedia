@@ -11,7 +11,7 @@
 <body>
 	<h1>Picturn</h1>
 	<p>This will be the landing page for Picturn!</p>
-	<a href="/info.html">info</a>
+	<a href="./info">info</a>
 </body>
 
 </html>
