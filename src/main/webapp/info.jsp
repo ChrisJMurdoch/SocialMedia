@@ -11,7 +11,7 @@
 <body>
 	<h1>Info Page</h1>
 	<p>No info to display yet.</p>
-	<a href="/">back to home</a>
+	<a href="./">back to home</a>
 </body>
 
 </html>
