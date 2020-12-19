@@ -2,7 +2,9 @@ package persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Database {
 	
@@ -34,5 +36,26 @@ public class Database {
 			System.out.println("Database failed to connect.");
 			e.printStackTrace();
 		}
+	}
+	
+	public static String getHash(String username) throws SQLException {
+		
+		System.out.println("Retrieving hash for "+username+"...");
+		
+		// Execute query
+		Statement statement = connection.createStatement();
+		ResultSet result = statement.executeQuery("SELECT hash FROM users WHERE username = '" + username + "'");
+		
+		// If result exists
+		if (result.next()) {
+			System.out.println("Hash retrieved.");
+			String hash = result.getString(1);
+			result.close();
+			statement.close();
+			return hash;
+		}
+		
+		System.out.println("User not found.");
+		throw new SQLException();
 	}
 }

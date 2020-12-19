@@ -1,12 +1,15 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import persistence.Database;
 import security.Password;
 
 /** Servlet to handle user logins */
@@ -50,7 +53,11 @@ public class Login extends HttpServlet {
 	}
 	
 	private boolean validatePassword(String username, String password) {
-		String hash = Password.hash(password);
-		return password.equals("admin");
+		try {
+			String hash = Database.getHash(username);
+			return Password.validate(hash, password);
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 }
