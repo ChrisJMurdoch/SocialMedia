@@ -4,12 +4,12 @@
 * {
 	box-sizing: border-box;
 	overflow: hidden;
-	font-family: Roboto, Arial;
-	font-weight: 100;
+	
+	font-family: Quicksand, Roboto, Arial;
+	font-weight: 400;
 	
 	background-size: cover;
 	background-position: center;
-	background-repeat: no-repeat;
 }
 
 html {
@@ -22,9 +22,13 @@ body {
 	height: 100vh;
 }
 
-form {
-	font-size: 1.5rem;
-	padding: 0 0.5em;
+a {
+	color: forestgreen;
+	text-decoration: none;
+}
+
+input:hover, a:hover {
+	opacity: 0.6;
 }
 
 input {
@@ -43,11 +47,12 @@ input:focus {
 
 input[type=password], input[type=text] {
 	padding-bottom: 0.2em;
-	border-bottom: 2px solid white;
+	border-bottom: 1px solid dimgrey;
 }
 
 input[type=submit] {
 	cursor: pointer;
+	color: forestgreen;
 }
 
 input::placeholder {
@@ -55,53 +60,32 @@ input::placeholder {
 	opacity: 1;
 }
 
-input:hover {
-	opacity: 0.6;
-}
-
 /* Classes */
+
 .login_box {
 	position: absolute;
+	padding: 1em;
+	
+	/* Centre vertically */
 	top: 50%;
-	left: 50%;
-	transform: translate(0, -50%);
+	transform: translateY(-50%);
+	
+	right: 10em;
+	
+	/* Use em to preserve number of text lines */
+	width: 17em;
+	
+	font-size: 1.5rem;
+	border-radius: 4px;
+	background-color: white;
+	box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 @media (orientation: portrait) {
 	.login_box {
-  		transform: translate(-50%, -50%);
+		right: 50%;
+		transform: translate(50%, -50%);
 	}
 }
-
-/* General purpose */
-
-.relative { position: relative }
-
-.left  { float: left;  }
-.right { float: right; }
-
-.w25  { width: 25%  }
-.w50  { width: 50%  }
-.w75  { width: 75%  }
-.w100 { width: 100% }
-
-.h25  { height: 25%  }
-.h50  { height: 50%  }
-.h75  { height: 75%  }
-.h100 { height: 100% }
-
-.centred {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.v_centred {
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-}
-.h_centred {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
+.login_box h3 {
+	margin: 0.5em 0;
 }
