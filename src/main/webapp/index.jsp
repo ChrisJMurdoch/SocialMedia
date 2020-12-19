@@ -9,35 +9,14 @@
 </head>
 
 <body>
-	<h1>Picturn</h1>
 	
 	<%
-		// Get data from post and session
-		String username = 		(String)session.getAttribute("username");
-		String loginFailure = 	(String)session.getAttribute("login_failure");
-		
-		// Clear single-use attributes
-		request.getSession().removeAttribute("login_failure");
-		
-		// Welcome message or login screen
-		if (username!=null) {%>
-		
-			<h1>Welcome <%=username%>!</h1>
-			<a href="logout">log out</a>
-			
-		<%} else {%>
-		
-			<form method="post" action="login">
-				Username: <input type="text" name="username"><br>
-		    	Password: <input type="text" name="password"><br>
-		    	<input type="submit" value="log in">
-			</form>
-			<div style="color: red;"><%= loginFailure==null ? "" : loginFailure %></div>
-			
-		<%}
+		// Logged out -> login screen | Logged in -> newsfeed
+		request.getRequestDispatcher( session.getAttribute("username")==null ? "index_variants/loginscreen.jsp" : "index_variants/newsfeed.jsp" ).forward( request, response );
 	%>
 	
-	<a href="./info">info</a>
+	<!-- This page should always forward to a page in the index_variants directory -->
+	<h1>Session error, try reloading page.</h1>
 	
 </body>
 

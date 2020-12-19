@@ -19,18 +19,25 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		System.out.println( "Login attempt, username: " + request.getParameter("username") + " password: " + request.getParameter("password") );
+		System.out.println( "Login attempt, username: [" + request.getParameter("username") + "] password: [" + request.getParameter("password") +"].");
 		
-		// Validate password
-		if ( request.getParameter("password").equals("admin") ) {
+		if ( request.getParameter("username").equals("") ) {
 			
+			// Invalid username
+			System.out.println( "Authentication failure." );
+			session.setAttribute("login_failure", "wrong_username");
+			
+		} else if ( request.getParameter("password").equals("admin") ) {
+			
+			// Valid
 			System.out.println( "Authentication success." );
 			session.setAttribute("username", request.getParameter("username"));
 			session.removeAttribute("login_failure");
 		} else {
 			
+			// Invlaid password
 			System.out.println( "Authentication failure." );
-			session.setAttribute("login_failure", "wrong password.");
+			session.setAttribute("login_failure", "wrong_password");
 		}
 
 		// Redirect to landing page
