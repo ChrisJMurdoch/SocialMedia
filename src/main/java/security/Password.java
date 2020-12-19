@@ -8,9 +8,9 @@ import de.mkammerer.argon2.Argon2Factory.Argon2Types;
 public class Password {
 	
 	// Argon2 presets
-	private static final int ITERATIONS = 4;
-	private static final int MEMORY = 256*1024; // 256MB - The cloud-deployed application only has 512MB allocated
-	private static final int PARALLELS = 2; // 2 per core - The cloud deployed application has 1 dedicated core
+	private static final int MEMORY = 256*1024; // 256MB - Server only has 512MB allocated
+	private static final int PARALLELS = 2; // 2 per core - Server has 1 dedicated core
+	private static final int ITERATIONS = 2; // Derived from memory and parallels, takes ~1.5 seconds
 	
 	// Use hybrid Argon2 implementation to resist a broader range of attacks
 	private static Argon2 argon2 = Argon2Factory.create(Argon2Types.ARGON2id);
