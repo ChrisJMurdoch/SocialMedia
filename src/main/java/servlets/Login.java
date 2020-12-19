@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import security.Password;
+
 /** Servlet to handle user logins */
 public class Login extends HttpServlet {
 	
@@ -19,28 +21,36 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		System.out.println( "Login attempt, username: [" + request.getParameter("username") + "] password: [" + request.getParameter("password") +"].");
-		
-		if ( request.getParameter("username").equals("") ) {
+		// Validate components
+		if ( !validateUsername(request.getParameter("username")) ) {
 			
 			// Invalid username
 			System.out.println( "Authentication failure." );
 			session.setAttribute("login_failure", "wrong_username");
 			
-		} else if ( request.getParameter("password").equals("admin") ) {
+		} else if ( !validatePassword(request.getParameter("username"), request.getParameter("password")) ) {
+			
+			// Invalid password
+			System.out.println( "Authentication failure." );
+			session.setAttribute("login_failure", "wrong_password");
+		} else {
 			
 			// Valid
 			System.out.println( "Authentication success." );
-			session.setAttribute("username", request.getParameter("username"));
 			session.removeAttribute("login_failure");
-		} else {
-			
-			// Invlaid password
-			System.out.println( "Authentication failure." );
-			session.setAttribute("login_failure", "wrong_password");
+			session.setAttribute("username", request.getParameter("username"));
 		}
 
 		// Redirect to landing page
 		response.sendRedirect("/");
+	}
+
+	private boolean validateUsername(String username) {
+		return !username.equals("");
+	}
+	
+	private boolean validatePassword(String username, String password) {
+		String hash = Password.hash(password);
+		return password.equals("admin");
 	}
 }
