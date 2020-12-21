@@ -11,6 +11,12 @@
 
 <body>
 	
+	<nav>
+		<a>Home</a>
+		<a>Messages</a>
+		<a><%=session.getAttribute("username")%></a>
+	</nav>
+	
 	<h1>Hello, <%=session.getAttribute("username")%>!</h1>
 	
 	<a href="logout">log out</a>
