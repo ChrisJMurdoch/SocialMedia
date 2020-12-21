@@ -48,23 +48,24 @@ public class Database {
 	}
 	
 	public static String getHash(String username) throws SQLException {
-		
-		System.out.println("Retrieving hash for "+username+"...");
-		
+		return getFirst("SELECT hash FROM users WHERE username = '" + username + "'");
+	}
+	
+	/* Will return the String value of the first column, first line */
+	private static String getFirst(String query) throws SQLException {
+
 		// Execute query
 		Statement statement = connection.createStatement();
-		ResultSet result = statement.executeQuery("SELECT hash FROM users WHERE username = '" + username + "'");
+		ResultSet result = statement.executeQuery(query);
 		
-		// If result exists
-		if (result.next()) {
-			System.out.println("Hash retrieved.");
-			String hash = result.getString(1);
-			result.close();
-			statement.close();
-			return hash;
-		}
+		// Extract value
+		String value = null;
+		if (result.next())
+			value = result.getString(1);
 		
-		System.out.println("User not found.");
-		throw new SQLException();
+		// Clean up
+		result.close();
+		statement.close();
+		return value;
 	}
 }

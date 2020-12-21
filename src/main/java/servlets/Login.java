@@ -19,45 +19,46 @@ public class Login extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET request at login servlet");
+		
+		// Redirect to landing page
+		response.sendRedirect("/");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		// Validate components
-		if ( !validateUsername(request.getParameter("username")) ) {
-			
-			// Invalid username
-			System.out.println( "Authentication failure." );
-			session.setAttribute("login_failure", "wrong_username");
-			
-		} else if ( !validatePassword(request.getParameter("username"), request.getParameter("password")) ) {
-			
-			// Invalid password
-			System.out.println( "Authentication failure." );
-			session.setAttribute("login_failure", "wrong_password");
-		} else {
-			
-			// Valid
-			System.out.println( "Authentication success." );
-			session.removeAttribute("login_failure");
-			session.setAttribute("username", request.getParameter("username"));
+		// Validate login
+		try {
+			String result = validate( request.getParameter("username"), request.getParameter("password") );
+			if ( result.equals("valid") ) {
+				System.out.println( "Authentication success." );
+				session.removeAttribute("login_failure");
+				session.setAttribute("username", request.getParameter("username"));
+			} else {
+				System.out.println(result);
+				session.setAttribute("login_failure", result);
+				System.err.println(result);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
+		
 		// Redirect to landing page
 		response.sendRedirect("/");
 	}
-
-	private boolean validateUsername(String username) {
-		return !username.equals("");
-	}
 	
-	private boolean validatePassword(String username, String password) {
-		try {
-			String hash = Database.getHash(username);
-			return Password.validate(hash, password);
-		} catch (SQLException e) {
-			return false;
-		}
+	private String validate(String username, String password) throws SQLException {
+		
+		// Get hash
+		System.out.println("Retrieving hash...");
+		String hash = Database.getHash(username);
+		
+		// No hash found for username
+		if (hash==null)
+			return "username_wrong";
+		
+		System.out.println("1: "+password+", 2: "+hash);
+		
+		return Password.validate(hash, password) ? "valid" : "password_wrong";
 	}
 }
