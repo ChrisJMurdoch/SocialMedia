@@ -6,11 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.postgresql.Driver;
+
 public class Database {
 	
 	private static Connection connection;
 	
 	public static void connect() {
+		
+		// This fixes the JDBC driver-loading issue with Eclipse
+		try {
+			Class.forName(Driver.class.getName());
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		
 		System.out.println("Database connecting...");
 		
