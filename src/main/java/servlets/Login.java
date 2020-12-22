@@ -59,8 +59,6 @@ public class Login extends HttpServlet {
 		if (hash==null)
 			return LoginResult.WRONG_USERNAME;
 		
-		System.out.println("1: "+password+", 2: "+hash);
-		
 		return Password.validate(hash, password) ? LoginResult.SUCCESS : LoginResult.WRONG_PASSWORD;
 	}
 }
