@@ -8,6 +8,7 @@
 	<script src="../javascript/script.js"></script>
 	<link rel="stylesheet" href="./css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<%@ page import = "servlets.Login" %>
 </head>
 
 <body style="background-image: url('images/CamBDark.jpg'); color: dimgrey">
@@ -19,11 +20,11 @@
 		
 		// Problem logging in
 		if ( session.getAttribute("login_failure") != null ) {
-			switch( (String)session.getAttribute("login_failure") ) {
-			case "username_wrong":
+			switch( (Login.LoginResult)session.getAttribute("login_failure") ) {
+			case WRONG_USERNAME:
 				lUser="No user by that name";
 				break;
-			case "password_wrong":
+			case WRONG_PASSWORD:
 				lPass="Wrong password";
 				break;
 			default:

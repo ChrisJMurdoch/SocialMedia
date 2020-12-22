@@ -12,10 +12,12 @@ import javax.servlet.http.HttpSession;
 import persistence.Database;
 import security.Password;
 
-/** Servlet to handle user logins */
+/** Servlet to handle and validate user login requests */
 public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	public enum LoginResult { SUCCESS, WRONG_USERNAME, WRONG_PASSWORD }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET request at login servlet");
@@ -29,8 +31,8 @@ public class Login extends HttpServlet {
 		
 		// Validate login
 		try {
-			String result = validate( request.getParameter("username"), request.getParameter("password") );
-			if ( result.equals("valid") ) {
+			LoginResult result = validate( request.getParameter("username"), request.getParameter("password") );
+			if ( result == LoginResult.SUCCESS ) {
 				System.out.println( "Authentication success." );
 				session.removeAttribute("login_failure");
 				session.setAttribute("username", request.getParameter("username"));
@@ -47,7 +49,7 @@ public class Login extends HttpServlet {
 		response.sendRedirect("/");
 	}
 	
-	private String validate(String username, String password) throws SQLException {
+	private LoginResult validate(String username, String password) throws SQLException {
 		
 		// Get hash
 		System.out.println("Retrieving hash...");
@@ -55,10 +57,10 @@ public class Login extends HttpServlet {
 		
 		// No hash found for username
 		if (hash==null)
-			return "username_wrong";
+			return LoginResult.WRONG_USERNAME;
 		
 		System.out.println("1: "+password+", 2: "+hash);
 		
-		return Password.validate(hash, password) ? "valid" : "password_wrong";
+		return Password.validate(hash, password) ? LoginResult.SUCCESS : LoginResult.WRONG_PASSWORD;
 	}
 }
