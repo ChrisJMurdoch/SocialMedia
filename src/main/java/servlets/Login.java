@@ -37,9 +37,8 @@ public class Login extends HttpServlet {
 				session.removeAttribute("login_failure");
 				session.setAttribute("username", request.getParameter("username"));
 			} else {
-				System.out.println(result);
-				session.setAttribute("login_failure", result);
 				System.err.println(result);
+				session.setAttribute("login_failure", result);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
