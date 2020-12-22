@@ -41,6 +41,12 @@
   	<description></description>
   	<servlet-class>servlets.Logout</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Register</servlet-name>
+  	<display-name>Register</display-name>
+  	<description></description>
+  	<servlet-class>servlets.Register</servlet-class>
+  </servlet>
   
   <!-- Mappings -->
   <servlet-mapping>
@@ -54,6 +60,10 @@
   <servlet-mapping>
   	<servlet-name>Logout</servlet-name>
   	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Register</servlet-name>
+  	<url-pattern>/register</url-pattern>
   </servlet-mapping>
   
 </web-app>

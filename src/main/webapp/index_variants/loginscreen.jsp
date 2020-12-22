@@ -8,7 +8,7 @@
 	<script src="../javascript/script.js"></script>
 	<link rel="stylesheet" href="./css/style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<%@ page import = "servlets.Login" %>
+	<%@ page import = "servlets.Login, servlets.Register" %>
 </head>
 
 <body style="background-image: url('images/CamBDark.jpg'); color: dimgrey">
@@ -33,24 +33,26 @@
 		}
 		
 		// Problem registering
+		boolean reg_fail = false;
 		if ( session.getAttribute("register_failure") != null ) {
-			switch( (String)session.getAttribute("register_failure") ) {
-			case "email_invalid":
+			reg_fail = true;
+			switch( (Register.RegisterResult)session.getAttribute("register_failure") ) {
+			case EMAIL_INVALID:
 				rEmail="Email invalid";
 				break;
-			case "email_used":
+			case EMAIL_USED:
 				rEmail="Email already in use";
 				break;
-			case "username_invalid":
+			case USERNAME_INVALID:
 				rUser="Username invalid";
 				break;
-			case "username_used":
+			case USERNAME_USED:
 				rUser="Username already in use";
 				break;
-			case "password_invalid":
-				rPass="Password invalid";
+			case PASSWORD_INVALID:
+				rPass="Must be at least 5 characters";
 				break;
-			case "password_mismatch":
+			case PASSWORD_MISMATCH:
 				rCheck="Passwords don't match";
 				break;
 			default:
@@ -78,6 +80,11 @@
 	   	<input type="password" autocomplete="off" name="check" placeholder="<%=rCheck%>"><br>
 	   	<input type="submit" value="Sign Up">
 	</form>
+	
+	<!-- Switch to registration view if problem -->
+	<% if (reg_fail) { %>
+		<script> switchDisplayed('login','register'); </script>
+	<% } %>
 	
 </body>
 

@@ -48,24 +48,52 @@ public class Database {
 	}
 	
 	public static String getHash(String username) throws SQLException {
-		return getFirst("SELECT hash FROM users WHERE username = '" + username + "'");
+		return get( "hash", "users", "username", username );
 	}
 	
-	/* Will return the String value of the first column, first line */
-	private static String getFirst(String query) throws SQLException {
-
+	/** Execute query without return value */
+	public static void execute(String query) throws SQLException {
+		
 		// Execute query
 		Statement statement = connection.createStatement();
 		ResultSet result = statement.executeQuery(query);
 		
+		// Clean up
+		result.close();
+		statement.close();
+	}
+	
+	/** Check to see if value exists for given column */
+	public static boolean exists(String table, String column, String value) throws SQLException {
+		
+		// Execute query
+		Statement statement = connection.createStatement();
+		ResultSet result = statement.executeQuery("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
+		
 		// Extract value
-		String value = null;
-		if (result.next())
-			value = result.getString(1);
+		boolean exists = result.next();
 		
 		// Clean up
 		result.close();
 		statement.close();
-		return value;
+		return exists;
+	}
+	
+	/** Will return the String value of the first column, first line */
+	public static String get(String get, String table, String column, String value) throws SQLException {
+		
+		// Execute query
+		Statement statement = connection.createStatement();
+		ResultSet result = statement.executeQuery("SELECT " + get + " FROM " + table + " WHERE " + column + " = '" + value + "'");
+		
+		// Extract value
+		String out = null;
+		if (result.next())
+			out = result.getString(1);
+		
+		// Clean up
+		result.close();
+		statement.close();
+		return out;
 	}
 }
