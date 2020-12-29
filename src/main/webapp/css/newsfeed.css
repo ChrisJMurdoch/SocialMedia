@@ -1,6 +1,10 @@
 
 /* Overrides */
 
+html {
+	overflow-y: scroll;
+}
+
 body {
 	background-color: whitesmoke;
 }
@@ -24,6 +28,16 @@ nav div * {
 	height: 1.2em;
 }
 
+main {
+	position: absolute;
+	left: 25%;
+	top: 3.4rem;
+	height: calc(100% - 3.4rem);
+	width: 50%;
+}
+
+/* Classes */
+
 .searchbar {
 	margin: 0.3em;
 	padding: 0 6px;
@@ -31,4 +45,21 @@ nav div * {
 	height: 1.4em;
 	border-radius: 3px;
 	background-color: rgb(240,240,240);
+}
+
+.post{
+	position: relative;
+	width: 25vw;
+	height: 25vw;
+}
+.post img {
+	width: 100%;
+	height: 100%;
+    object-fit: cover;
+}
+.post .caption {
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+	color: white;
 }

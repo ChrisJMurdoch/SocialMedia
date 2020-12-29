@@ -26,6 +26,13 @@
 		</div>
 	</nav>
 	
+	<main>
+		<div class="post">
+			<img src="https://f000.backblazeb2.com/file/picturn/demo_image.jpg">
+			<div class="caption">Lake photo - Posted by Chris</div>
+		</div>
+	</main>
+	
 </body>
 
 </html>
