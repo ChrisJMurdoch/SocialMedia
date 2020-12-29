@@ -7,6 +7,7 @@
 	<title>Picturn</title>
 	<script src="../javascript/script.js"></script>
 	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/loginscreen.css">
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	<%@ page import = "servlets.Login, servlets.Register" %>
 </head>

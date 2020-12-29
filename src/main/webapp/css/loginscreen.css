@@ -1,0 +1,52 @@
+
+/* Overrides */
+
+input {
+	margin: 0.5em 0;
+	width: 100%;
+}
+
+input[type=password], input[type=text] {
+	padding-bottom: 0.2em;
+	border-bottom: 1px solid dimgrey;
+}
+
+input[type=submit] {
+	cursor: pointer;
+}
+
+input::placeholder {
+	color: inherit;
+	opacity: 1;
+}
+
+/* Classes */
+
+/* Context-centred form used for registration and login */
+.centre_form {
+	position: absolute;
+	padding: 1em;
+	
+	/* Centre vertically */
+	top: 50%;
+	transform: translateY(-50%);
+	
+	right: 10em;
+	
+	/* Use em to preserve number of text lines */
+	width: 17em;
+	
+	font-size: 1.5rem;
+	border-radius: 10px;
+	background-color: white;
+	box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+@media (orientation: portrait) {
+	.centre_form {
+		right: 50%;
+		transform: translate(50%, -50%);
+	}
+}
+.centre_form h3 {
+	margin: 0.5em 0;
+}
