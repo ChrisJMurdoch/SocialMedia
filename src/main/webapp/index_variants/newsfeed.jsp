@@ -22,11 +22,13 @@
 			<input class="searchbar" type="text" placeholder="Search Picturn...">
 		</div>
 		<div>
-			<a href="logout">Log Out</a>
+			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 			<a href="users/<%=session.getAttribute("username")%>"><%=session.getAttribute("username")%></a>
-			<a href="./">Messages</a>
+			<a href="logout">Log Out</a>
 		</div>
 	</nav>
+	
+	<div id="screen" onclick="hide('screen','newpost')"></div>
 	
 	<main>
 		<!-- Loop through posts and generate html -->
@@ -38,6 +40,16 @@
 			</div>
 		<% } %>
 	</main>
+	
+	<form class="newpost_form" id="newpost" method="post" action="./">
+		
+		<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
+		<input id="file" class="hide" type="file" name="file" accept="image/*" onchange="displayImage(event)">
+		
+		<input type="text" autocomplete="off" name="title" placeholder="Title"><br>
+		<input type="text" autocomplete="off" name="description" placeholder="Description"><br>
+		<input type="submit" value="Post">
+	</form>
 	
 </body>
 
