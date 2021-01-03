@@ -2,132 +2,138 @@
 
 <!-- This file is used by maven to install dependencies and plugins -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>picturn</groupId>
-  <artifactId>picturnapp</artifactId>
-  <version>0.0.1</version>
-  <packaging>war</packaging>
-	
-  <name>picturnapp</name>
-  <url>http://www.example.com</url>
-  
-  <properties>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.9</maven.compiler.source>
-    <maven.compiler.target>1.9</maven.compiler.target>
-  </properties>
-  
-  <dependencies>
-    
-  	<!-- Default dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-	
-    <!-- Java EE web-api -->
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
-    </dependency>
-    
-    <!-- Argon2 security -->
-    <dependency>
-	    <groupId>de.mkammerer</groupId>
-	    <artifactId>argon2-jvm</artifactId>
-	    <version>2.5</version>
-	</dependency>
-	
-	<!-- PostgreSQL connectivity -->
-	<dependency>
-	    <groupId>org.postgresql</groupId>
-	    <artifactId>postgresql</artifactId>
-	    <version>42.2.18</version>
-	</dependency>
-	
-	<!-- Backblaze B2 storage -->
-	<dependency>
-		<groupId>com.backblaze.b2</groupId>
-	    <artifactId>b2-sdk-core</artifactId>
-	    <version>4.0.0</version>
-	    <scope>compile</scope>
-  	</dependency>
-  	<dependency>
-	    <groupId>com.backblaze.b2</groupId>
-	    <artifactId>b2-sdk-httpclient</artifactId>
-	    <version>4.0.0</version>
-	    <scope>compile</scope>
-  	</dependency>
-    
-  </dependencies>
+	<groupId>picturn</groupId>
+	<artifactId>picturnapp</artifactId>
+	<version>0.0.1</version>
+	<packaging>war</packaging>
 
-  <build>
-    <finalName>picturnapp</finalName>
-    <pluginManagement>
-      <plugins>
-      
-      	<!-- Default plugins -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.2.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <plugins>
-    
-      <!-- Heroku webapp-runner -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals><goal>copy</goal></goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>com.heroku</groupId>
-                  <artifactId>webapp-runner</artifactId>
-                  <version>9.0.41.0</version>
-                  <destFileName>webapp-runner.jar</destFileName>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      
-    </plugins>
-  </build>
+	<name>picturnapp</name>
+	<url>http://www.example.com</url>
+
+	<dependencies>
+
+		<!-- Default dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Java EE web-api -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Argon2 security -->
+		<dependency>
+			<groupId>de.mkammerer</groupId>
+			<artifactId>argon2-jvm</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<!-- PostgreSQL connectivity -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.18</version>
+		</dependency>
+
+		<!-- Backblaze B2 storage -->
+		<dependency>
+			<groupId>com.backblaze.b2</groupId>
+			<artifactId>b2-sdk-core</artifactId>
+			<version>4.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.backblaze.b2</groupId>
+			<artifactId>b2-sdk-httpclient</artifactId>
+			<version>4.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>picturnapp</finalName>
+
+		<pluginManagement>
+			<plugins>
+				<!-- Default plugin management -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- Java compiler -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>15</source>
+					<target>15</target>
+				</configuration>
+			</plugin>
+
+			<!-- Heroku webapp-runner -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.heroku</groupId>
+									<artifactId>webapp-runner</artifactId>
+									<version>9.0.41.0</version>
+									<destFileName>webapp-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		
+	</build>
 </project>
