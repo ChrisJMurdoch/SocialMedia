@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import persistence.Database;
+import persistence.Database.Post;
 
 /** Simple listener class to act upon server startup */
 public class Lifetime implements ServletContextListener {

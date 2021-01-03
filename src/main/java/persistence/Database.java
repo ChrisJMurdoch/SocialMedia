@@ -3,8 +3,10 @@ package persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 import org.postgresql.Driver;
 
@@ -14,21 +16,21 @@ public class Database {
 	
 	public static void connect() {
 		
+		System.out.println("Database connecting...");
+		
 		// This fixes the JDBC driver-loading issue with Eclipse
 		try {
 			Class.forName(Driver.class.getName());
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		
-		System.out.println("Database connecting...");
 		
 		// Get secret information from environment
 		String user = System.getenv("db_user");
 		String pass = System.getenv("db_pass");
 		
 		// No credentials
-		if (user==null||pass==null) {
+		if (user==null || pass==null) {
 			System.out.println("Please add db_user and db_pass to environment variables.");
 			System.out.println("Database failed to connect.");
 			return;
@@ -47,53 +49,63 @@ public class Database {
 		}
 	}
 	
-	public static String getHash(String username) throws SQLException {
-		return get( "hash", "users", "username", username );
+	/* Utility method to return query data as a list of rows; each an array of columns */
+	public static LinkedList<String[]> execute(String query) {
+		
+		try {
+			
+			// Execute query
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(query);
+			int columns = result.getMetaData().getColumnCount();
+			
+			// For every row
+			LinkedList<String[]> list = new LinkedList<>();
+			while (result.next()) {
+				
+				// For every column
+				String[] array = new String[columns];
+				for (int i=0; i<array.length; i++) {
+					array[i] = result.getString(i+1);
+				}
+				list.add(array);
+			}
+			
+			// Clean up
+			result.close();
+			statement.close();
+			return list;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
-	/** Execute query without return value */
-	public static void execute(String query) throws SQLException {
-		
-		// Execute query
-		Statement statement = connection.createStatement();
-		ResultSet result = statement.executeQuery(query);
-		
-		// Clean up
-		result.close();
-		statement.close();
+	public static boolean exists(String table, String column, String value) {
+		LinkedList<String[]> result = execute("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
+		return result.size() > 0;
 	}
 	
-	/** Check to see if value exists for given column */
-	public static boolean exists(String table, String column, String value) throws SQLException {
-		
-		// Execute query
-		Statement statement = connection.createStatement();
-		ResultSet result = statement.executeQuery("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
-		
-		// Extract value
-		boolean exists = result.next();
-		
-		// Clean up
-		result.close();
-		statement.close();
-		return exists;
+	public static String getHash(String username) {
+		LinkedList<String[]> result = execute("SELECT hash FROM users WHERE username = '" + username + "'");
+		return (result.size()>0) ? result.get(0)[0] : null;
 	}
 	
-	/** Will return the String value of the first column, first line */
-	public static String get(String get, String table, String column, String value) throws SQLException {
-		
-		// Execute query
-		Statement statement = connection.createStatement();
-		ResultSet result = statement.executeQuery("SELECT " + get + " FROM " + table + " WHERE " + column + " = '" + value + "'");
-		
-		// Extract value
-		String out = null;
-		if (result.next())
-			out = result.getString(1);
-		
-		// Clean up
-		result.close();
-		statement.close();
-		return out;
+	public static LinkedList<Post> getPosts(String user) {
+		LinkedList<Post> posts = new LinkedList<>();
+		for (String[] array : execute("SELECT * FROM posts WHERE username = '" + user + "'"))
+			posts.add(new Post(array));
+		return posts;
+	}
+	
+	public static class Post {
+		public String id, username, title, description;
+		public Post(String[] data) {
+			this.id = data[0];
+			this.username = data[1];
+			this.title = data[2];
+			this.description = data[3];
+		}
 	}
 }

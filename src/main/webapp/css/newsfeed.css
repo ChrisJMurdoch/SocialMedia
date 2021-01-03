@@ -30,11 +30,12 @@ nav div * {
 }
 
 main {
+	display: flex;
+	flex-wrap: wrap;
 	position: absolute;
-	left: 25%;
+	left: 20vw;
 	top: 3.4rem;
-	height: calc(100% - 3.4rem);
-	width: 50%;
+	width: 60vw;
 }
 
 /* Classes */
@@ -48,19 +49,29 @@ main {
 	background-color: rgb(240,240,240);
 }
 
-.post{
+.post {
+	/* Invisible until loaded */
+	visibility: hidden;
+	margin: 0.1vw;
 	position: relative;
-	width: 25vw;
-	height: 25vw;
+	width: 19.8vw;
+	height: 19.8vw;
 }
 .post img {
 	width: 100%;
 	height: 100%;
     object-fit: cover;
 }
-.post .caption {
+.post .title {
+	position: absolute;
+	left: 5px;
+	bottom: calc(1em + 5px);
+	color: white;
+}
+.post .description {
 	position: absolute;
 	left: 5px;
 	bottom: 5px;
 	color: white;
+	opacity: 0.8;
 }
