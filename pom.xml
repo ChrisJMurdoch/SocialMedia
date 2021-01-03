@@ -10,18 +10,18 @@
   <artifactId>picturnapp</artifactId>
   <version>0.0.1</version>
   <packaging>war</packaging>
-
+	
   <name>picturnapp</name>
   <url>http://www.example.com</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.15</maven.compiler.source>
-    <maven.compiler.target>1.15</maven.compiler.target>
-  </properties>
-
-  <dependencies>
   
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.9</maven.compiler.source>
+    <maven.compiler.target>1.9</maven.compiler.target>
+  </properties>
+  
+  <dependencies>
+    
   	<!-- Default dependencies -->
     <dependency>
       <groupId>junit</groupId>
@@ -29,7 +29,7 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    
+	
     <!-- Java EE web-api -->
     <dependency>
       <groupId>javax</groupId>
@@ -54,7 +54,7 @@
 	
 	<!-- Backblaze B2 storage -->
 	<dependency>
-	    <groupId>com.backblaze.b2</groupId>
+		<groupId>com.backblaze.b2</groupId>
 	    <artifactId>b2-sdk-core</artifactId>
 	    <version>4.0.0</version>
 	    <scope>compile</scope>
