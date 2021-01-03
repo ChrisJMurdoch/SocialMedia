@@ -85,6 +85,6 @@ public class Register extends HttpServlet {
 	}
 	
 	private void register(String email, String username, String password) throws SQLException {
-		Database.execute("INSERT INTO users VALUES ( '" + username + "', '" + email + "', '" + Password.hash(password) + "' )");
+		Database.query("INSERT INTO users VALUES ( '" + username + "', '" + email + "', '" + Password.hash(password) + "' )");
 	}
 }

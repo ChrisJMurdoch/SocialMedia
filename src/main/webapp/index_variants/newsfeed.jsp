@@ -41,7 +41,7 @@
 		<% } %>
 	</main>
 	
-	<form class="newpost_form" id="newpost" method="post" action="./">
+	<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
 		
 		<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
 		<input id="file" class="hide" type="file" name="file" accept="image/*" onchange="displayImage(event)">

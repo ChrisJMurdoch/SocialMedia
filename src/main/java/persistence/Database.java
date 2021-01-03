@@ -49,8 +49,25 @@ public class Database {
 		}
 	}
 	
+	/* Execute command without return data */
+	public static void execute(String command) {
+		
+		try {
+			
+			// Execute query
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(command);
+			
+			// Clean up
+			statement.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/* Utility method to return query data as a list of rows; each an array of columns */
-	public static LinkedList<String[]> execute(String query) {
+	public static LinkedList<String[]> query(String query) {
 		
 		try {
 			
@@ -83,20 +100,32 @@ public class Database {
 	}
 	
 	public static boolean exists(String table, String column, String value) {
-		LinkedList<String[]> result = execute("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
+		LinkedList<String[]> result = query("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
 		return result.size() > 0;
 	}
 	
 	public static String getHash(String username) {
-		LinkedList<String[]> result = execute("SELECT hash FROM users WHERE username = '" + username + "'");
+		LinkedList<String[]> result = query("SELECT hash FROM users WHERE username = '" + username + "'");
 		return (result.size()>0) ? result.get(0)[0] : null;
 	}
 	
 	public static LinkedList<Post> getPosts(String user) {
 		LinkedList<Post> posts = new LinkedList<>();
-		for (String[] array : execute("SELECT * FROM posts WHERE username = '" + user + "'"))
+		for (String[] array : query("SELECT * FROM posts WHERE username = '" + user + "'"))
 			posts.add(new Post(array));
 		return posts;
+	}
+	
+	/* Create post and return id number (highest id as most recent) */
+	public static int createPost(String user, String title, String description) {
+		execute( "INSERT INTO posts VALUES(DEFAULT, '"+user+"', '"+title+"', '"+description+"')" );
+		LinkedList<String[]> result = query("SELECT id FROM posts");
+		int highest = 0;
+		for (String[] row : result) {
+			int index = Integer.parseInt(row[0]);
+			highest = (index>highest) ? index : highest;
+		}
+		return highest;
 	}
 	
 	public static class Post {

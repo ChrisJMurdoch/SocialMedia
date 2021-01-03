@@ -7,6 +7,10 @@ import java.util.Enumeration;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import com.backblaze.b2.client.exceptions.B2Exception;
+
+import persistence.Backblaze;
 import persistence.Database;
 import persistence.Database.Post;
 
@@ -16,6 +20,7 @@ public class Lifetime implements ServletContextListener {
     public Lifetime() {
         System.out.println("\n=== Server starting ===");
         Database.connect();
+		Backblaze.connect();
         System.out.println("=== Server started ===\n");
     }
     
