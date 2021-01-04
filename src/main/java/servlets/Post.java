@@ -1,8 +1,12 @@
 package servlets;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -33,20 +37,76 @@ public class Post extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		// Data
+		// Ensure logged in
 		String username = (String)session.getAttribute("username");
+		if (username==null) {
+			response.sendRedirect("/");
+			return;
+		}
+		
+		// Get parameters
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");
 		
-		// File
-		InputStream is = request.getPart("file").getInputStream();
+		// Validate post data
+		if (title==null || description==null) {
+			response.sendRedirect("/");
+			return;
+		}
+		
+		// Extract filetype and contents
+		String filetype;
+		BufferedImage original; // Use buffered image to allow for fast image operations
+		{
+			InputStream is = null;
+			try {
+				Part file = request.getPart("file");
+				filetype = request.getPart("file").getSubmittedFileName().split("\\.", -1)[1];
+				is = file.getInputStream();
+				original = ImageIO.read(is);
+				
+			} catch (IndexOutOfBoundsException | NullPointerException | IOException e) {
+				response.sendRedirect("/");
+				return;
+				
+			} finally {
+				if (is!=null)
+					is.close();
+			}
+		}
+		
+		// Create thumbnail - TODO
+		BufferedImage thumbnail = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB); // TYPE_INT_RGB is important for JPG format
+		{
+			Graphics2D g2d = thumbnail.createGraphics();
+			g2d.drawImage(original, 0, 0, null);
+			g2d.dispose();
+		}
 		
 		// Upload to database and backblaze
-		try {
-			int id = Database.createPost(username, title, description);
-			Backblaze.upload(id+"tn.jpg", is.readAllBytes());
-		} catch (B2Exception | IOException e) {
-			e.printStackTrace();
+		{
+			ByteArrayOutputStream originalOS = new ByteArrayOutputStream(), thumbnailOS = new ByteArrayOutputStream();
+			try {
+				// Create database entry and get reference id for Backblaze
+				int id = Database.createPost(username, title, description, filetype);
+				
+				// Extract image binary data
+				ImageIO.write(original, filetype, originalOS);
+				ImageIO.write(thumbnail, "jpg", thumbnailOS);
+				
+				// Upload original and thumbnail to Backblaze with reference id
+				Backblaze.upload(id+"og."+filetype, originalOS.toByteArray());
+				Backblaze.upload(id+"tn.jpg", thumbnailOS.toByteArray());
+				
+			} catch (B2Exception | IOException e) {
+				e.printStackTrace();
+				
+			} finally {
+				if(originalOS!=null)
+					originalOS.close();
+				if(thumbnailOS!=null)
+					thumbnailOS.close();
+			}
 		}
 		
 		response.sendRedirect("/");
