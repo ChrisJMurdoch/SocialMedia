@@ -39,7 +39,10 @@ public class Lifetime implements ServletContextListener {
 			}
     	}
     	System.out.println("Drivers deregistered.");
-    	
+
+        Database.disconnect();
+		Backblaze.disconnect();
+		
         System.out.println("=== Server closed ===\n");
     }
     

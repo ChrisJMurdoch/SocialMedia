@@ -42,6 +42,12 @@ public class Backblaze {
 		System.out.println("Backblaze connected.");
 	}
 	
+	public static void disconnect() {
+		System.out.println("Backblaze disconnecting...");
+		client.close();
+		System.out.println("Backblaze disconnected.");
+	}
+	
 	public static void upload(String filename, byte[] data) throws B2Exception, IOException {
 		B2ContentSource source = B2ByteArrayContentSource.build(data);
 		B2UploadFileRequest request = B2UploadFileRequest

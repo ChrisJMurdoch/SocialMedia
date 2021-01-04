@@ -66,6 +66,16 @@ public class Database {
 		}
 	}
 	
+	public static void disconnect() {
+		try {
+			System.out.println("Database disconnecting...");
+			connection.close();
+			System.out.println("Database disconnected.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/* Utility method to return query data as a list of rows; each an array of columns */
 	public static LinkedList<String[]> query(String query) {
 		
@@ -117,8 +127,8 @@ public class Database {
 	}
 	
 	/* Create post and return id number (highest id as most recent) */
-	public static int createPost(String user, String title, String description) {
-		execute( "INSERT INTO posts VALUES(DEFAULT, '"+user+"', '"+title+"', '"+description+"')" );
+	public static int createPost(String user, String title, String description, String imageType) {
+		execute( "INSERT INTO posts VALUES(DEFAULT, '"+user+"', '"+title+"', '"+description+"', '"+imageType+"')" );
 		LinkedList<String[]> result = query("SELECT id FROM posts");
 		int highest = 0;
 		for (String[] row : result) {
