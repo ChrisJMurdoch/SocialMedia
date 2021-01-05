@@ -34,8 +34,8 @@
 		<!-- Loop through posts and generate html -->
 		<% for (Database.Post post : Database.getPosts("Chris")) { %>
 			<div class="post" id="<%= post.id %>">
-				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.png" onload="show('<%= post.id %>')">
-				<div class="title"><%=post.title%></div>
+				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
+				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
 				<div class="description"><%=post.description%></div>
 			</div>
 		<% } %>

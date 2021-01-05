@@ -88,11 +88,11 @@ public class Post extends HttpServlet {
 				
 				// Extract image binary data
 				ImageIO.write(original, filetype, originalOS);
-				ImageIO.write(thumbnail, "png", thumbnailOS);
+				ImageIO.write(thumbnail, "jpg", thumbnailOS);
 				
 				// Upload original and thumbnail to Backblaze with reference id
 				Backblaze.upload(id+"og."+filetype, originalOS.toByteArray());
-				Backblaze.upload(id+"tn.png", thumbnailOS.toByteArray());
+				Backblaze.upload(id+"tn.jpg", thumbnailOS.toByteArray());
 				
 			} catch (B2Exception | IOException e) {
 				e.printStackTrace();
