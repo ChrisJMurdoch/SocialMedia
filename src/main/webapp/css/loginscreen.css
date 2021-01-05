@@ -1,6 +1,10 @@
 
 /* Overrides */
 
+body {
+	height: 100vh;
+}
+
 input {
 	margin: 0.5em 0;
 	width: 100%;
