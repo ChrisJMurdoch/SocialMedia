@@ -18,6 +18,7 @@ import javax.servlet.http.Part;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import image.ImageProcessor;
 import persistence.Backblaze;
 import persistence.Database;
 
@@ -75,13 +76,8 @@ public class Post extends HttpServlet {
 			}
 		}
 		
-		// Create thumbnail - TODO
-		BufferedImage thumbnail = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB); // TYPE_INT_RGB is important for JPG format
-		{
-			Graphics2D g2d = thumbnail.createGraphics();
-			g2d.drawImage(original, 0, 0, null);
-			g2d.dispose();
-		}
+		// Create thumbnail
+		BufferedImage thumbnail = ImageProcessor.thumbnail(original);
 		
 		// Upload to database and backblaze
 		{
@@ -92,11 +88,11 @@ public class Post extends HttpServlet {
 				
 				// Extract image binary data
 				ImageIO.write(original, filetype, originalOS);
-				ImageIO.write(thumbnail, "jpg", thumbnailOS);
+				ImageIO.write(thumbnail, "png", thumbnailOS);
 				
 				// Upload original and thumbnail to Backblaze with reference id
 				Backblaze.upload(id+"og."+filetype, originalOS.toByteArray());
-				Backblaze.upload(id+"tn.jpg", thumbnailOS.toByteArray());
+				Backblaze.upload(id+"tn.png", thumbnailOS.toByteArray());
 				
 			} catch (B2Exception | IOException e) {
 				e.printStackTrace();

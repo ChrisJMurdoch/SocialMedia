@@ -33,9 +33,9 @@ main {
 	display: flex;
 	flex-wrap: wrap;
 	position: absolute;
-	left: 20vw;
-	top: 3.4rem;
-	width: 60vw;
+	top: calc( 2em + 15px );
+	left: calc( 50% - 735px );
+	width: 1470px;
 }
 
 /* Classes */
@@ -52,10 +52,10 @@ main {
 .post {
 	/* Invisible until loaded */
 	visibility: hidden;
-	margin: 0.1vw;
+	margin: 5px;
 	position: relative;
-	width: 19.8vw;
-	height: 19.8vw;
+	width: 480px;
+	height: 480px;
 }
 .post img {
 	width: 100%;
