@@ -11,7 +11,9 @@ Git, Maven, and Eclipse EE are required to install and edit the project.
 
 *Git is available to download at https://git-scm.com/downloads*
 
-*Maven comes with Eclipse EE and can be downloaded at https://www.eclipse.org/downloads*
+*Maven can be downloaded at https://maven.apache.org/download.cgi and help on installing can be found at https://www.baeldung.com/install-maven-on-windows-linux-mac*
+
+*Eclipse EE and can be downloaded at https://www.eclipse.org/downloads*
 
 ### Clone the repository using Git
 
