@@ -32,7 +32,7 @@
 	
 	<main>
 		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getPosts("Chris")) { %>
+		<% for (Database.Post post : Database.getUserPosts("Chris")) { %>
 			<div class="post" id="<%= post.id %>">
 				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
 				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">

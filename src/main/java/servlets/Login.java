@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
 		
 		// Get hash
 		System.out.println("Retrieving hash...");
-		String hash = Database.getHash(username);
+		String hash = Database.getValue("hash", "users", "username", username);
 		
 		// No hash found for username
 		if (hash==null)

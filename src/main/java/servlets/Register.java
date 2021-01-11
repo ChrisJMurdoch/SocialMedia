@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
 				session.setAttribute("username", request.getParameter("username"));
 				
 				// Register user in database
-				register( request.getParameter("email"), request.getParameter("username"), request.getParameter("password") );
+				Database.createUser( request.getParameter("username"), request.getParameter("email"), Password.hash(request.getParameter("password")) );
 			} else {
 				System.err.println(result);
 				session.setAttribute("register_failure", result);
@@ -82,9 +82,5 @@ public class Register extends HttpServlet {
 			return RegisterResult.USERNAME_USED;
 		
 		return RegisterResult.SUCCESS;
-	}
-	
-	private void register(String email, String username, String password) throws SQLException {
-		Database.query("INSERT INTO users VALUES ( '" + username + "', '" + email + "', '" + Password.hash(password) + "' )");
 	}
 }
