@@ -56,6 +56,12 @@
   	<description></description>
   	<servlet-class>servlets.Post</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Follow</servlet-name>
+  	<display-name>Follow</display-name>
+  	<description></description>
+  	<servlet-class>servlets.Follow</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>Status</servlet-name>
@@ -76,6 +82,10 @@
   <servlet-mapping>
   	<servlet-name>Post</servlet-name>
   	<url-pattern>/post</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Follow</servlet-name>
+  	<url-pattern>/Follow</url-pattern>
   </servlet-mapping>
   
 </web-app>

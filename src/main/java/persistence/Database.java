@@ -31,24 +31,34 @@ public class Database {
 	}
 	
 	// ===== QUERIES =====
-
+	
 	/** Return list of all users */
 	public static LinkedList<User> getUsers() {
 		return getRows( "SELECT * FROM users", User.class);
 	}
 	
+	/** Return list of posts from all users */
+	public static LinkedList<Post> getAllPosts() {
+		return getRows( "SELECT * FROM posts ORDER BY posted_at DESC;", Post.class);
+	}
+	
 	/** Return list of posts for given user */
 	public static LinkedList<Post> getUserPosts(String user) {
-		return getRows( "SELECT * FROM posts WHERE username = '" + user + "'", Post.class);
+		return getRows( "SELECT * FROM posts WHERE username = '" + user + "' ORDER BY posted_at DESC;", Post.class);
+	}
+	
+	/** Return list of posts from all users followed by given user */
+	public static LinkedList<Post> getFollowedUserPosts(String user) {
+		return getRows( "SELECT posts.* FROM following JOIN posts ON following.followed = posts.username WHERE following.follower = '" + user + "' ORDER BY posted_at DESC;", Post.class);
 	}
 	
 	// ===== EXECUTIONS =====
-	
+
 	/** Create user in database */
 	public static void createUser(String username, String email, String hash) {
 		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"' )");
 	}
-	
+
 	/** Create post in database and return id number */
 	public static int createPost(String user, String title, String description, String imageType) {
 		DatabaseDirect.execute( "INSERT INTO posts VALUES ( DEFAULT, '"+user+"', '"+title+"', '"+description+"', '"+imageType+"' )" );
@@ -59,6 +69,11 @@ public class Database {
 			highest = (index>highest) ? index : highest;
 		}
 		return highest;
+	}
+	
+	/** Create following entry in database */
+	public static void follow(String follower, String followed) {
+		DatabaseDirect.execute("INSERT INTO following VALUES ( '"+follower+"', '"+followed+"' )");
 	}
 	
 	// ===== DATA PARSING AND REPRESENTATION =====
