@@ -3,8 +3,8 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Picturn</title>
-	<script src="../javascript/script.js"></script>
-	<script src="../javascript/profile.js" defer></script>
+	<script src="./javascript/script.js"></script>
+	<script src="./javascript/profile.js" defer></script>
 	<link rel="stylesheet" href="./css/style.css">
 	<link rel="stylesheet" href="./css/profile.css">
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
