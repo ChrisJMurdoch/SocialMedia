@@ -15,16 +15,11 @@
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	
-	<!-- JAVA IMPORTS -->
-	<%@ page import="persistence.Database" %>
-	
-	<!-- PAGE-SPECIFIC RESOURCES -->
-	<link rel="stylesheet" href="./css/newsfeed.css">
-	
 </head>
 
 <body>
 	
+	<!-- NAVIGATION BAR -->
 	<nav>
 		<div>
 			<a href="./">Picturn</a>
@@ -39,19 +34,8 @@
 		</div>
 	</nav>
 	
+	<!-- NAVIGATION ELEMENTS -->
 	<div id="screen" onclick="hide('screen','newpost')"></div>
-	
-	<main>
-		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getAllPosts()) { %>
-			<div class="post" id="<%= post.id %>">
-				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
-				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
-				<div class="description"><%=post.description%></div>
-			</div>
-		<% } %>
-	</main>
-	
 	<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
 		
 		<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
@@ -61,6 +45,9 @@
 		<input type="text" autocomplete="off" name="description" placeholder="Description"><br>
 		<input type="submit" value="Post">
 	</form>
+	
+	<!-- ADD HTML HERE -->
+	<h1>Template page</h1>
 	
 </body>
 

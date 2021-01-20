@@ -3,13 +3,24 @@
 <html>
 
 <head>
-	<meta charset="ISO-8859-1">
+	
+	<!-- METADATA -->
+	<meta charset="UTF-8">
 	<title>Picturn</title>
-	<script src="../javascript/script.js"></script>
+	
+	<!-- COMMON INCLUDES -->
+	<script src="./javascript/script.js"></script>
 	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/loginscreen.css">
+	
+	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<%@ page import = "servlets.Login, servlets.Register" %>
+	
+	<!-- JAVA IMPORTS -->
+	<%@ page import="servlets.Login, servlets.Register" %>
+	
+	<!-- PAGE-SPECIFIC RESOURCES -->
+	<link rel="stylesheet" href="./css/loginscreen.css">
+	
 </head>
 
 <body style="background-image: url('images/CamBDark.jpg'); color: dimgrey">
