@@ -32,9 +32,15 @@ public class Database {
 	
 	// ===== QUERIES =====
 	
+	/** Return user that matches given username */
+	public static User getUser(String username) {
+		LinkedList<User> result = getRows( "SELECT * FROM users WHERE username = '" + username + "'", User.class);
+		return result.size()>0 ? result.get(0) : null;
+	}
+	
 	/** Return list of all users */
 	public static LinkedList<User> getUsers() {
-		return getRows( "SELECT * FROM users", User.class);
+		return getRows( "SELECT * FROM users ORDER BY hash", User.class);
 	}
 	
 	/** Return list of posts from all users */
@@ -56,7 +62,7 @@ public class Database {
 
 	/** Create user in database */
 	public static void createUser(String username, String email, String hash) {
-		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"' )");
+		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT )");
 	}
 
 	/** Create post in database and return id number */
@@ -102,11 +108,13 @@ public class Database {
 	
 	public static class User extends DBRow {
 		public String username, email, hash;
+		public boolean has_avatar;
 		@Override
 		public void populate(String[] data) {
 			this.username = data[0];
 			this.email = data[1];
 			this.hash = data[2];
+			this.has_avatar = data[3].equals("t");
 		}
 	}
 	public static class Post extends DBRow {

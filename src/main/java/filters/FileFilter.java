@@ -19,6 +19,8 @@ public class FileFilter implements Filter {
 	private static HashMap<String, String> fileExtensions = new HashMap<>();
 	static {
 		fileExtensions.put("info", ".jsp");
+		fileExtensions.put("users", ".jsp");
+		fileExtensions.put("profile", ".jsp");
 	}
 	
 	/** This function intercepts all incoming requests */

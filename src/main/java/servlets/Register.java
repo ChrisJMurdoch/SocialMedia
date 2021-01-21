@@ -35,7 +35,7 @@ public class Register extends HttpServlet {
 			if ( result == RegisterResult.SUCCESS ) {
 				System.out.println( "Registration success." );
 				session.removeAttribute("register_failure");
-				session.setAttribute("username", request.getParameter("username"));
+				session.setAttribute( "user", Database.getUser(request.getParameter("username")) );
 				
 				// Register user in database
 				Database.createUser( request.getParameter("username"), request.getParameter("email"), Password.hash(request.getParameter("password")) );

@@ -1,0 +1,54 @@
+
+html {
+	overflow-y: scroll;
+}
+
+.user_list {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.user {
+	margin: 1%;
+	display: flex;
+	justify-content: space-between;
+	width: 31.33333333%;
+	height: 5em;
+	background-color: white;
+	border-radius: 1em;
+	box-shadow: 0 0 10px lightgrey;
+}
+
+.user img, .avatar_placeholder {
+	height: 5em;
+	width: 5em;
+	background-color: lightgrey;
+	box-shadow: 0 0 25px lightgrey;
+}
+
+.user_name {
+	height: 100%;
+	width: calc(100% - 10rem);
+}
+
+.user_name .inner {
+	padding: 2rem;
+	width: 1000%;
+	height: 100%;
+	line-height: 1rem;
+	font-size: 1.5rem;
+	overflow: show;
+}
+
+.add {
+	margin: 1.5rem;
+	width: 2rem;
+	height: 2rem;
+	font-size: 2rem;
+	line-height: 0.85em;
+	text-align: center;
+	background-color: forestgreen;
+	color: white;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 10px lightgrey;
+}

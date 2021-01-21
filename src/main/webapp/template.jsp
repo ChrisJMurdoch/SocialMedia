@@ -15,6 +15,14 @@
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	
+	<!-- JAVA IMPORTS -->
+	<%@ page import="persistence.Database" %>
+	
+	<!-- GET SESSION DATA -->
+	<%
+		Database.User user = (Database.User)session.getAttribute("user");
+	%>
+	
 </head>
 
 <body>
@@ -28,8 +36,9 @@
 			<input class="searchbar" type="text" placeholder="Search Picturn...">
 		</div>
 		<div>
+			<a href="users">Find Users</a>
 			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-			<a href="users/<%=session.getAttribute("username")%>"><%=session.getAttribute("username")%></a>
+			<a href="users"><%=user.username%></a>
 			<a href="logout">Log Out</a>
 		</div>
 	</nav>
