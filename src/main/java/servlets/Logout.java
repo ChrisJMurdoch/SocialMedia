@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import persistence.Database.User;
+
 /** Servlet to handle user logins */
 public class Logout extends HttpServlet {
 	
@@ -15,7 +17,7 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String username = (String)session.getAttribute("username");
+		String username = ((User)session.getAttribute("user")).username;
 		System.out.println( username==null ? ("Already logged out.") : ("Logging out: " + username + ".")  );
 		
 		// Delete session

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import persistence.Database;
+import persistence.Database.User;
 
 public class Follow extends HttpServlet {
 	
@@ -24,7 +25,7 @@ public class Follow extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// Ensure logged in
-		String username = (String)session.getAttribute("username");
+		String username = ((User)session.getAttribute("user")).username;
 		if (username==null) {
 			response.sendRedirect("/");
 			return;
@@ -43,6 +44,6 @@ public class Follow extends HttpServlet {
 		Database.follow(username, follow);
 		
 		// Redirect to landing page
-		response.sendRedirect("/");
+		response.sendRedirect("/users");
 	}
 }

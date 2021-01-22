@@ -85,7 +85,7 @@
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>Follow</servlet-name>
-  	<url-pattern>/Follow</url-pattern>
+  	<url-pattern>/follow</url-pattern>
   </servlet-mapping>
   
 </web-app>

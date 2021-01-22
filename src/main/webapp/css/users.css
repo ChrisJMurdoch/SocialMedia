@@ -40,15 +40,23 @@ html {
 	overflow: show;
 }
 
-.add {
+.user form {
+	width: 5em;
+	height: 5em;
+}
+
+.user form button {
 	margin: 1.5rem;
+	padding: 0.5rem 0.5rem 0.75rem 0.5rem;
 	width: 2rem;
 	height: 2rem;
-	font-size: 2rem;
-	line-height: 0.85em;
-	text-align: center;
+	
+	font-size: 1.5rem;
+	line-height: 0;
+	
 	background-color: forestgreen;
 	color: white;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 10px lightgrey;
+	border: none;
 }

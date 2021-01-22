@@ -43,6 +43,13 @@ public class Database {
 		return getRows( "SELECT * FROM users ORDER BY hash", User.class);
 	}
 	
+	/** Return list of all users minus self and followed users */
+	public static LinkedList<User> getFollowableUsers(String username) {
+		return getRows( "SELECT users.* FROM users WHERE users.username != '" + username +
+				"' EXCEPT SELECT users.* FROM users JOIN following ON users.username = following.followed WHERE following.follower = '"
+				+ username + "';", User.class);
+	}
+	
 	/** Return list of posts from all users */
 	public static LinkedList<Post> getAllPosts() {
 		return getRows( "SELECT * FROM posts ORDER BY posted_at DESC;", Post.class);

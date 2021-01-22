@@ -21,6 +21,7 @@ import com.backblaze.b2.client.exceptions.B2Exception;
 import image.ImageProcessor;
 import persistence.Backblaze;
 import persistence.Database;
+import persistence.Database.User;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -39,7 +40,7 @@ public class Post extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// Ensure logged in
-		String username = (String)session.getAttribute("username");
+		String username = ((User)session.getAttribute("user")).username;
 		if (username==null) {
 			response.sendRedirect("/");
 			return;

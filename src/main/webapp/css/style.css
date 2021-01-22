@@ -30,13 +30,13 @@ body {
 }
 
 /* Colour interactive text accent green */
-a, input[type=submit] {
+a, input[type=submit], button {
 	color: forestgreen;
 	text-decoration: none;
 }
 
 /* React to hovering */
-input:hover, a:hover {
+input:hover, a:hover, button:hover {
 	opacity: 0.6;
 }
 

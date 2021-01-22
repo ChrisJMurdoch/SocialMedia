@@ -30,6 +30,7 @@
 
 <body>
 	
+	<!-- NAVIGATION BAR -->
 	<nav>
 		<div>
 			<a href="./">Picturn</a>
@@ -40,7 +41,7 @@
 		<div>
 			<a href="users">Find Users</a>
 			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-			<a href="users"><%=user.username%></a>
+			<a href=""><%=user.username%></a>
 			<a href="logout">Log Out</a>
 		</div>
 	</nav>
@@ -49,7 +50,7 @@
 	
 	<main>
 		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getAllPosts()) { %>
+		<% for (Database.Post post : Database.getFollowedUserPosts(user.username)) { %>
 			<div class="post" id="<%= post.id %>">
 				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
 				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">

@@ -43,7 +43,7 @@
 			<div>
 				<a href="users">Find Users</a>
 				<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-				<a href="users"><%=user.username%></a>
+				<a href=""><%=user.username%></a>
 				<a href="logout">Log Out</a>
 			</div>
 		</nav>
@@ -62,7 +62,7 @@
 		
 		<!-- USER LIST -->
 		<div class="user_list">
-			<% for(Database.User u : Database.getUsers()) { %>
+			<% for(Database.User u : Database.getFollowableUsers(user.username)) { %>
 				<div class="user">
 					<% if (u.has_avatar) { %>
 						<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
@@ -70,7 +70,9 @@
 						<div class = "avatar_placeholder"></div>
 					<% } %>
 					<div class="user_name"><div class="inner"><%= u.username %></div></div>
-					<a href="" class=add>+</a>
+					<form method="post" action="/follow">
+						<button type="submit" name="follow" value="<%=u.username%>">+</button>
+					</form>
 				</div>
 			<% } %>
 		</div>
