@@ -50,7 +50,7 @@
 	
 	<main>
 		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getFollowedUserPosts(user.username)) { %>
+		<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
 			<div class="post" id="<%= post.id %>">
 				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
 				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">

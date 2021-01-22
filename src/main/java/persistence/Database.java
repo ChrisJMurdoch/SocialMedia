@@ -64,6 +64,11 @@ public class Database {
 	public static LinkedList<Post> getFollowedUserPosts(String user) {
 		return getRows( "SELECT posts.* FROM following JOIN posts ON following.followed = posts.username WHERE following.follower = '" + user + "' ORDER BY posted_at DESC;", Post.class);
 	}
+	/** Return list of posts from all users followed by given user plus own posts */
+	public static LinkedList<Post> getNewsfeedPosts(String user) {
+		return getRows( "SELECT posts.* FROM following JOIN posts ON following.followed = posts.username WHERE following.follower = '" + user +
+				"' UNION SELECT posts.* FROM posts WHERE posts.username = '" + user + "' ORDER BY posted_at DESC;", Post.class);
+	}
 	
 	// ===== EXECUTIONS =====
 
