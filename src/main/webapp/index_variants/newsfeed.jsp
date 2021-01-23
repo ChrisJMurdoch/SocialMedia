@@ -41,7 +41,7 @@
 		<div>
 			<a href="users">Find Users</a>
 			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-			<a href="profile"><%=user.username%></a>
+			<a href="/WEB-INF/profile.jsp"><%=user.username%></a>
 			<a href="logout">Log Out</a>
 		</div>
 	</nav>
