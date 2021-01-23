@@ -44,10 +44,10 @@
 		</div>
 		<div class="main-content">
 			<ul class="nav-tabs">
-				<li data-tab-target = "#posts" class="tab" >Posts</a></li>
-				<li data-tab-target = "#followers" class="tab">Followers</a></li>
-				<li data-tab-target = "#following" class="tab">Following</a></li>
-				<li data-tab-target = "#trophies" class="tab">Trophies</a></li>
+				<li data-tab-target = "#posts" class="tab" >Posts</li>
+				<li data-tab-target = "#followers" class="tab">Followers</li>
+				<li data-tab-target = "#following" class="tab">Following</li>
+				<li data-tab-target = "#trophies" class="tab">Trophies</li>
 			</ul>
 			<div class="tab-content">
 				<div class="active" id="posts" tab-pane >
