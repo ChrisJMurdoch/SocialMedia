@@ -1,20 +1,16 @@
 package persistence;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 
 import com.backblaze.b2.client.B2StorageClient;
 import com.backblaze.b2.client.B2StorageClientFactory;
 import com.backblaze.b2.client.contentSources.B2ByteArrayContentSource;
 import com.backblaze.b2.client.contentSources.B2ContentSource;
 import com.backblaze.b2.client.contentSources.B2ContentTypes;
-import com.backblaze.b2.client.contentSources.B2FileContentSource;
 import com.backblaze.b2.client.exceptions.B2Exception;
-import com.backblaze.b2.client.structures.B2FileVersion;
-import com.backblaze.b2.client.structures.B2ListFileVersionsRequest;
 import com.backblaze.b2.client.structures.B2UploadFileRequest;
+
+import credentials.CredentialLoader;
 
 public class Backblaze {
 	
@@ -27,12 +23,12 @@ public class Backblaze {
 		System.out.println("Backblaze connecting...");
 		
 		// Get secret information from environment
-		String keyid = System.getenv("b2_key_id");
-		String appkey = System.getenv("b2_app_key");
+		String keyid = CredentialLoader.B2_KEY_ID;
+		String appkey = CredentialLoader.B2_APP_KEY;
 		
 		// No credentials
 		if (keyid==null || appkey==null) {
-			System.out.println("Please add b2_app_key and b2_key_id to environment variables.");
+			System.out.println("No credentials set.");
 			System.out.println("Backblaze failed to connect.");
 			return;
 		}

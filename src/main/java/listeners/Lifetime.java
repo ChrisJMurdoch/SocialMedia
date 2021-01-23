@@ -10,6 +10,7 @@ import javax.servlet.ServletContextListener;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import credentials.CredentialLoader;
 import persistence.Backblaze;
 import persistence.Database;
 import persistence.Database.Post;
@@ -21,6 +22,7 @@ public class Lifetime implements ServletContextListener {
     public Lifetime() {
     	
         System.out.println("\n=== Server starting ===");
+        CredentialLoader.init();
         Database.connect();
 		Backblaze.connect();
         System.out.println("=== Server started ===\n");
