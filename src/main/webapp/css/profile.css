@@ -63,9 +63,24 @@ main {
     
 }
 .dp-form {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+	
+	z-index: 3;
+	position: fixed;
+	padding: 1em;
+	
+	/* Centre */
+	right: 50%;
+	top: 50%;
+	transform: translate(50%, -50%);
+	
+	/* Use em to preserve number of text lines */
+	width: 17em;
+	
+	font-size: 1.5rem;
+	border-radius: 10px;
+	background-color: white;
+	box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
 .profile-info {
