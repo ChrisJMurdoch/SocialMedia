@@ -27,15 +27,34 @@ main {
 	box-shadow: 0 0 15px lightgrey;
 	background-color: white;
 }
-.post img {
+.post_image {
 	display: block;
 	width: 100%;
 	height: auto;
 	border-top: 1px solid lightgrey;
 	border-bottom: 1px solid lightgrey;
 }
-.post .title, .post .description {
-	padding: 0.3em;
+.post_header {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5em;
 	width: 100%;
-	color: dimgrey;
+	height: 2em;
+	line-height: 1em;
+}
+.like_box {
+	display: flex;
+	justify-content: space-between;
+	width: 2em;
+	height: 1em;
+}
+.like_button {
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+}
+.post_footer {
+	padding: 0.5em;
+	width: 100%;
+	line-height: 1em;
 }
