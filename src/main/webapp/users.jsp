@@ -41,10 +41,9 @@
 				<input class="searchbar" type="text" placeholder="Search Picturn...">
 			</div>
 			<div>
-				<a href="users">Find Users</a>
 				<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-				<a href=""><%=user.username%></a>
-				<a href="logout">Log Out</a>
+				<a href="/users/<%=user.username%>"><%=user.username%></a>
+				<a href="/logout">Log Out</a>
 			</div>
 		</nav>
 		
