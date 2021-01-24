@@ -17,10 +17,16 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		String username = ((User)session.getAttribute("user")).username;
-		System.out.println( username==null ? ("Already logged out.") : ("Logging out: " + username + ".")  );
+		// Validate session user
+		User user = (User)session.getAttribute("user");
+		if (user==null) {
+			System.out.println( "Already logged out." );
+			response.sendRedirect("/");
+			return;
+		}
 		
 		// Delete session
+		System.out.println( "Logging out: " + user.username );
 		session.invalidate();
 		
 		// Redirect to landing page

@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+	<!-- META DATA -->
 	<meta charset="ISO-8859-1">
 	<title>Picturn</title>
-	<script src="./javascript/script.js"></script>
-	<script src="./javascript/profile.js" defer></script>
-	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/profile.css">
-	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	
+	<!-- GLOBAL LINKS -->
+	<script src="/javascript/script.js"></script>
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<!-- FONTS -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- PAGE-SPECIFIC LINKS -->
+	<script src="/javascript/profile.js" defer></script>
+	<link rel="stylesheet" href="/css/profile.css">
+	
+	<!-- SESSION -->
+	<%@ page import="persistence.Database" %>
+	<%
+		// Get session and user data
+		Database.User user = (Database.User)session.getAttribute("user");
+		System.out.println("user: " + user);
+		
+		// Add dummy user if null
+		if (user==null) {
+			user = new Database.User();
+			String[] dummy = {"DEFAULT_USER", "default@gmail.com", "dummy_hash", "f"};
+			user.populate(dummy);
+		}
+	%>
+	
 </head>
 <body>
+
+	<!-- NAVIGATION BAR -->
 	<nav>
+		<div><a href="/">Picturn</a></div>
+		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
-			<a href="./">Picturn</a>
-		</div>
-		<div style="width: 40%;">
-			<input class="searchbar" type="text" placeholder="Search Picturn...">
-		</div>
-		<div>
-			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-			<a href="users/<%=session.getAttribute("username")%>"><%=session.getAttribute("username")%></a>
-			<a href="logout">Log Out</a>
+			<a href="/users">Find Users</a>
+			<a href="/users/<%=user.username%>"><%=user.username%></a>
+			<a href="/logout">Log Out</a>
 		</div>
 	</nav>
 	
@@ -31,7 +53,7 @@
 		<div class = "profile-head">
 			<!-- users display picture and change link for adding a new dp -->
 			<div class="display-pic">
-				<img src="defaultIcon.jpg " width="200" alt="">
+				<img src="../images/defaultIcon.jpg " width="200" alt="">
 				<a href="javascript:void(0);" onclick="show('dp')">Change</a>
 			</div>
 			
@@ -44,7 +66,7 @@
 			
 			<!-- user information  -->
 			<div class="profile-info">
-				<h3 class="user-name">Username</h3>
+				<h3 class="user-name"><%=request.getParameter("profile")%></h3>
 				<p class="bio">Insert bio here...</p>
 				<p>Joined on ...</p>
 			</div>

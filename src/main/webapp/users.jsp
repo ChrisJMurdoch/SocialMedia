@@ -15,12 +15,19 @@
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	
-	<!-- JAVA IMPORTS -->
+	<!-- SESSION -->
 	<%@ page import="persistence.Database" %>
-	
-	<!-- GET SESSION DATA -->
 	<%
+		// Get session and user data
 		Database.User user = (Database.User)session.getAttribute("user");
+		System.out.println("user: " + user);
+		
+		// Add dummy user if null
+		if (user==null) {
+			user = new Database.User();
+			String[] dummy = {"DEFAULT_USER", "default@gmail.com", "dummy_hash", "f"};
+			user.populate(dummy);
+		}
 	%>
 	
 	<!-- PAGE SPECIFIC -->
@@ -34,13 +41,10 @@
 		
 		<!-- NAVIGATION BAR -->
 		<nav>
+			<div><a href="/">Picturn</a></div>
+			<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 			<div>
-				<a href="./">Picturn</a>
-			</div>
-			<div style="width: 40%;">
-				<input class="searchbar" type="text" placeholder="Search Picturn...">
-			</div>
-			<div>
+				<a href="/users">Find Users</a>
 				<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 				<a href="/users/<%=user.username%>"><%=user.username%></a>
 				<a href="/logout">Log Out</a>
