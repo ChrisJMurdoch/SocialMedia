@@ -16,18 +16,12 @@ public class CredentialLoader {
 			loadFromFile(file);
 		else
 			loadFromEnv();
-		
-		/*System.out.println("db user: "+DB_USER);
-		System.out.println("db pass: "+DB_PASS);
-		System.out.println("b2 key id: "+B2_KEY_ID);
-		System.out.println("b2 app key: "+B2_APP_KEY);*/
 	}
 	
 	private static void loadFromEnv() {
 		
 		System.out.println("Getting credentials from environment...");
 		
-		// Get secret information from environment
 		DB_USER = System.getenv("db_user");
 		DB_PASS = System.getenv("db_pass");
 		B2_KEY_ID = System.getenv("b2_key_id");
