@@ -26,7 +26,17 @@
 	</nav>
 	<div class = "container">
 		<div class = "profile-head">
-			<img src="defaultIcon.jpg " width="200" alt="">
+			<div class="display-pic">
+				<img src="defaultIcon.jpg " width="200" alt="">
+				<a href="javascript:void(0);" onclick="show('dp')">Change</a>
+			</div>
+
+			<form class="dp-form" id="dp" >
+				<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
+				<input id="file" class="hide" type="file" name="file" accept="image/*" onchange="displayImage(event)">
+				<input type="submit" value="Change">
+			</form>
+			
 			<div class="profile-info">
 				<h3 class="user-name">Username</h3>
 				<p class="bio">Insert bio here...</p>
@@ -50,7 +60,7 @@
 				<li data-tab-target = "#trophies" class="tab">Trophies</li>
 			</ul>
 			<div class="tab-content">
-				<div class="active" id="posts" tab-pane >
+				<div class="active tab-pane" id="posts">
 					<div class="gallery">
 						<a target="_blank" href="https://composeclick.com/wp-content/uploads/2018/05/nature-1-1024x637.jpg">
 							<img src = "https://composeclick.com/wp-content/uploads/2018/05/nature-1-1024x637.jpg" alt="pic" width="600" height="400">
@@ -69,15 +79,15 @@
 					</div>
 				</div>
 
-				<div id="followers" tab-pane >
+				<div id="followers" class = "tab-pane" >
 					<p>This tab will show a list of the people that are following your account</p>
 				</div>
 
-				<div class="tab-pane" id="following" tab-pane >
+				<div class="tab-pane" id="following">
 					<p>This tab will show a list of the people you are following</p>
 				</div>
 
-				<div class="tab-pane" id="trophies" tab-pane >
+				<div class="tab-pane" id="trophies">
 					<p>This tab will show a list of the trophies you have earned</p>
 				</div>
 			</div>

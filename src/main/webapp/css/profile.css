@@ -47,14 +47,25 @@ main {
 
 }
 
-.profile-head img {
+.display-pic{
+    float: left;
+    margin-right: 10%;
+    text-align: center;
+}
+
+.display-pic img {
     position: relative;
     border: 1px solid forestgreen;
     border-radius: 15px;
     max-height: 150px;
     max-width: 100px;
-    float: left;
-    margin-right: 10%;
+    display: block;
+    
+}
+.dp-form {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
 }
 
 .profile-info {
