@@ -55,7 +55,8 @@
 			<div class="post" id="<%= post.id %>">
 				<div class="post_header">
 					<% String time = post.posted_at.split(" ")[0]; %>
-					<div><span style="color: grey"><%=time%></span> <%=post.username%></div>
+					<div class="timestamp"><%=time%></div>
+					<div class="username"><%=post.username%></div>
 					<div class="like_box">
 						<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
 						<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
@@ -63,7 +64,9 @@
 					</div>
 				</div>
 				<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
-				<div class="post_footer"><%=post.description%></div>
+				<% if (!post.description.equals("")) { %>
+					<div class="post_footer"><%=post.description%></div>
+					<% } %>
 			</div>
 		<% } %>
 	</main>
