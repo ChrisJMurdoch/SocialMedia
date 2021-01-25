@@ -18,6 +18,12 @@ public class Database {
 	
 	// ===== UTILITY =====
 	
+	/** Take in a user-submitted String, and escape any SQL code */
+	private static String sanitise(String input) {
+		// TODO
+		return null;
+	}
+	
 	/** Check whether or not a value exists */
 	public static boolean exists(String table, String column, String value) {
 		LinkedList<String[]> result = DatabaseDirect.query("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
