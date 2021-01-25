@@ -20,7 +20,6 @@
 	<%
 		// Get session and user data
 		Database.User user = (Database.User)session.getAttribute("user");
-		System.out.println("user: " + user);
 		
 		// Add dummy user if null
 		if (user==null) {
@@ -44,8 +43,8 @@
 			<div><a href="/">Picturn</a></div>
 			<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 			<div>
+				<a href="/leaderboard">Leaderboard</a>
 				<a href="/users">Find Users</a>
-				<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 				<a href="/users/<%=user.username%>"><%=user.username%></a>
 				<a href="/logout">Log Out</a>
 			</div>

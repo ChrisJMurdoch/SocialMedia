@@ -21,6 +21,7 @@ public class FileFilter implements Filter {
 		fileExtensions.put("info", ".jsp");
 		fileExtensions.put("users", ".jsp");
 		fileExtensions.put("profile", ".jsp");
+		fileExtensions.put("leaderboard", ".jsp");
 	}
 	
 	/** This function intercepts all incoming requests */
@@ -56,7 +57,7 @@ public class FileFilter implements Filter {
 				
 				System.out.println("URL passed.");
 				chain.doFilter(request, response);
-				return;
+				return;//user: 
 			}
 			
 		} catch (ClassCastException e) {

@@ -55,7 +55,7 @@ public class Database {
 				"WHERE following.follower = '"+username+"';",
 			User.class);
 	}
-	
+
 	/** Get posts from user + followed users */
 	public static LinkedList<Post> getNewsfeedPosts(String username) {
 		return getRows(
@@ -69,6 +69,31 @@ public class Database {
 				"following ON posts_with_likes.username = following.followed AND ( following.follower = '"+username+"' OR posts_with_likes.username = '"+username+"' ) " +
 				"ORDER BY posts_with_likes.posted_at DESC;",
 			Post.class);
+	}
+
+	/** Get users with most likes */
+	public static LinkedList<LeaderboardPosting> mostLikes() {
+		return getRows(
+			"SELECT users.username, users.has_avatar, COUNT(awards) AS likes FROM " +
+				"users LEFT JOIN " +
+				"posts ON users.username = posts.username LEFT JOIN " +
+				"awards ON posts.id = awards.post AND awards.award = 'like' " +
+				"GROUP BY users.username " +
+				"ORDER BY likes DESC " +
+				"LIMIT 5;",
+			LeaderboardPosting.class);
+	}
+
+	/** Get users with most posts */
+	public static LinkedList<LeaderboardPosting> mostPosts() {
+		return getRows(
+			"SELECT users.username, users.has_avatar, COUNT(posts) AS posts FROM " +
+				"users LEFT JOIN " +
+				"posts ON users.username = posts.username " +
+				"GROUP BY users.username " +
+				"ORDER BY posts DESC " +
+				"LIMIT 5;",
+			LeaderboardPosting.class);
 	}
 	
 	// ===== EXECUTIONS =====
@@ -128,7 +153,7 @@ public class Database {
 	private static abstract class DBRow {
 		abstract void populate(String[] data);
 	}
-	
+
 	public static class User extends DBRow {
 		public String username, email, hash;
 		public boolean has_avatar;
@@ -138,6 +163,17 @@ public class Database {
 			email = data[1];
 			hash = data[2];
 			has_avatar = data[3].equals("t");
+		}
+	}
+	public static class LeaderboardPosting extends DBRow {
+		public String username;
+		public boolean has_avatar;
+		public int score;
+		@Override
+		public void populate(String[] data) {
+			username = data[0];
+			has_avatar = data[1].equals("t");
+			score = Integer.parseInt(data[2]);
 		}
 	}
 	public static class Post extends DBRow {
