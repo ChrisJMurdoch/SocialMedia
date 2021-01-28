@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=5L6h_MrNvsk followed this tutorial for tabs
+
 const tabs = document.querySelectorAll('[data-tab-target]')
 const tabContents = document.querySelectorAll('[tab-pane]')
 
