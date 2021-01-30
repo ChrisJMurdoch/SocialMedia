@@ -28,7 +28,7 @@
 	<%
 		// Set default placeholder text
 		String lUser="Username", lPass="Password";
-		String rEmail="Email", rUser="Username", rPass="Password", rCheck="Retype your password";
+		String rEmail="Email", rUser="Username", rPass="Password";
 		
 		// Problem logging in
 		if ( session.getAttribute("login_failure") != null ) {
@@ -64,9 +64,6 @@
 			case PASSWORD_INVALID:
 				rPass="Must be at least 5 characters";
 				break;
-			case PASSWORD_MISMATCH:
-				rCheck="Passwords don't match";
-				break;
 			default:
 				System.out.println("Unexpected register_failure value:" + session.getAttribute("register_failure"));
 			}
@@ -89,7 +86,7 @@
 		<input type="text" autocomplete="off" name="email" placeholder="<%=rEmail%>"><br>
 		<input type="text" autocomplete="off" name="username" placeholder="<%=rUser%>"><br>
 	   	<input type="password" autocomplete="off" name="password" placeholder="<%=rPass%>"><br>
-	   	<input type="password" autocomplete="off" name="check" placeholder="<%=rCheck%>"><br>
+	   	By creating an account with us, you agree to our <a href="/termsofservice" target="_">Terms of Service</a>.
 	   	<input type="submit" value="Sign Up">
 	</form>
 	
