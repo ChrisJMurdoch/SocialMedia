@@ -96,7 +96,7 @@
 				<li data-tab-target = "#trophies" class="tab">Trophies</li>
 			</ul>
 			<div class="tab-content">
-				<div class="active tab-pane" id="posts">
+				<div tab-pane class="active" id="posts"  >
 					<!-- Uploaded photos will be displayed under this tab -->
 					<div class="gallery">
 						<a target="_blank" href="https://composeclick.com/wp-content/uploads/2018/05/nature-1-1024x637.jpg">
@@ -116,15 +116,15 @@
 					</div>
 				</div>
 
-				<div  class = "tab-pane" id="followers" >
+				<div  class = "tab-pane" id="followers" tab-pane>
 					<p>This tab will show a list of the people that are following your account</p>
 				</div>
 
-				<div class="tab-pane" id="following">
+				<div class="tab-pane" id="following" tab-pane>
 					<p>This tab will show a list of the people you are following</p>
 				</div>
 
-				<div class="tab-pane" id="trophies">
+				<div class="tab-pane" id="trophies" tab-pane>
 					<p>This tab will show a list of the trophies you have earned</p>
 				</div>
 			</div>
