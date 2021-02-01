@@ -23,6 +23,7 @@
 	<%
 		// Get session and user data
 		Database.User user = (Database.User)session.getAttribute("user");
+		String profile = request.getParameter("profile");
 		
 		// Add dummy user if null
 		if (user==null) {
@@ -96,36 +97,63 @@
 				<li data-tab-target = "#trophies" class="tab">Trophies</li>
 			</ul>
 			<div class="tab-content">
-				<div tab-pane class="active" id="posts"  >
+				<div tab-pane class="active" id="posts" style="padding: 0 35%;">
 					<!-- Uploaded photos will be displayed under this tab -->
-					<div class="gallery">
-						<a target="_blank" href="https://composeclick.com/wp-content/uploads/2018/05/nature-1-1024x637.jpg">
-							<img src = "https://composeclick.com/wp-content/uploads/2018/05/nature-1-1024x637.jpg" alt="pic" width="600" height="400">
-						</a>
-						<div class="desc">
-							description
+					<!-- Loop through posts and generate html -->
+					<% for (Database.Post post : Database.getUserPosts(profile, user.username)) { %>
+						<div class="post" id="<%= post.id %>">
+							<div class="post_header">
+								<% String time = post.posted_at.split(" ")[0]; %>
+								<div class="timestamp"><%=time%></div>
+								<div class="username"><%=post.username%></div>
+								<div class="like_box">
+									<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
+									<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
+									<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+								</div>
+							</div>
+							<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
+							<% if (!post.description.equals("")) { %>
+								<div class="post_footer"><%=post.description%></div>
+								<% } %>
 						</div>
-					</div>
-					<div class='gallery'>
-						<a target="_blank" href="https://composeclick.com/wp-content/uploads/2018/05/nature-2-1024x576.jpg">
-							<img src="https://composeclick.com/wp-content/uploads/2018/05/nature-2-1024x576.jpg" alt="Forest" width="600" height="400">
-						</a>
-						<div class="desc">
-							description
-						</div>
-					</div>
+					<% } %>
 				</div>
 
 				<div  class = "tab-pane" id="followers" tab-pane>
-					<p>This tab will show a list of the people that are following your account</p>
+					<!-- USER LIST -->
+					<div class="user_list">
+						<% for(Database.User u : Database.getFollowers(profile)) { %>
+							<div class="user">
+								<% if (u.has_avatar) { %>
+									<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
+								<% } else { %>
+									<div class = "avatar_placeholder"></div>
+								<% } %>
+								<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
+							</div>
+						<% } %>
+					</div>
 				</div>
-
+				
 				<div class="tab-pane" id="following" tab-pane>
-					<p>This tab will show a list of the people you are following</p>
+					<!-- USER LIST -->
+					<div class="user_list">
+						<% for(Database.User u : Database.getFollowed(profile)) { %>
+							<div class="user">
+								<% if (u.has_avatar) { %>
+									<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
+								<% } else { %>
+									<div class = "avatar_placeholder"></div>
+								<% } %>
+								<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
+							</div>
+						<% } %>
+					</div>
 				</div>
 
 				<div class="tab-pane" id="trophies" tab-pane>
-					<p>This tab will show a list of the trophies you have earned</p>
+					<p style="padding-left: 45%">No trophies to show yet!</p>
 				</div>
 			</div>
 		</div>

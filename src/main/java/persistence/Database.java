@@ -43,8 +43,26 @@ public class Database {
 		LinkedList<User> result = getRows( "SELECT * FROM users WHERE username = '" + username + "'", User.class);
 		return result.size()>0 ? result.get(0) : null;
 	}
-	
-	/** Get unfollowed users minus self */
+
+	/** Get followers */
+	public static LinkedList<User> getFollowers(String username) {
+		return getRows(
+			"SELECT users.* FROM " +
+				"users JOIN " +
+				"following ON users.username = following.follower AND following.followed = '"+username+"';",
+			User.class);
+	}
+
+	/** Get followed */
+	public static LinkedList<User> getFollowed(String username) {
+		return getRows(
+			"SELECT users.* FROM " +
+				"users JOIN " +
+				"following ON users.username = following.followed AND following.follower = '"+username+"';",
+			User.class);
+	}
+
+	/** Get users following user */
 	public static LinkedList<User> getFollowableUsers(String username) {
 		return getRows(
 			"SELECT users.* FROM users " +
@@ -54,6 +72,18 @@ public class Database {
 				"following ON users.username = following.followed " +
 				"WHERE following.follower = '"+username+"';",
 			User.class);
+	}
+
+	/** Get posts from user */
+	public static LinkedList<Post> getUserPosts(String username, String observer) {
+		return getRows(
+				"SELECT posts.*, COUNT(awards) AS likes, bool_or(awards.sender = '"+observer+"') as liked FROM " +
+					"posts LEFT JOIN " +
+					"awards ON posts.id = awards.post AND awards.award = 'like' " +
+					"WHERE posts.username = '"+username+"' " +
+					"GROUP BY posts.id " +
+					"ORDER BY posts.posted_at DESC;",
+			Post.class);
 	}
 
 	/** Get posts from user + followed users */

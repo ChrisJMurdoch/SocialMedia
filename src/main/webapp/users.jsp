@@ -71,7 +71,7 @@
 					<% } else { %>
 						<div class = "avatar_placeholder"></div>
 					<% } %>
-					<div class="user_name"><div class="inner"><%= u.username %></div></div>
+					<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
 					<form method="post" action="/follow">
 						<button type="submit" name="follow" value="<%=u.username%>">+</button>
 					</form>
