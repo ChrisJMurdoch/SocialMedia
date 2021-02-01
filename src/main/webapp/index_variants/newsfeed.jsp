@@ -53,26 +53,47 @@
 	<div id="screen" onclick="hide('screen','newpost')"></div>
 	
 	<main>
-		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
-			<div class="post" id="<%= post.id %>">
-				<div class="post_header">
-					<% String time = post.posted_at.split(" ")[0]; %>
-					<div class="timestamp"><%=time%></div>
-					<div class="username"><%=post.username%></div>
-					<div class="like_box">
-						<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
-						<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
-						<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+		<div class="newsfeed">
+			<!-- Loop through posts and generate html -->
+			<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
+				<div class="post" id="<%= post.id %>">
+					<div class="post_header">
+						<% String time = post.posted_at.split(" ")[0]; %>
+						<div class="timestamp"><%=time%></div>
+						<div class="username"><%=post.username%></div>
+						<div class="like_box">
+							<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
+							<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
+							<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+						</div>
 					</div>
+					<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
+					<% if (!post.description.equals("")) { %>
+						<div class="post_footer"><%=post.description%></div>
+						<% } %>
 				</div>
-				<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
-				<% if (!post.description.equals("")) { %>
-					<div class="post_footer"><%=post.description%></div>
-					<% } %>
-			</div>
-		<% } %>
+			<% } %>
+		</div>
 	</main>
+	
+	<!-- <div class="notifications_box">No notifications to show</div> -->
+	
+	<div class="following_box">
+		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Following</div>
+		<!-- USER LIST -->
+		<div class="user_list">
+			<% for(Database.User u : Database.getFollowed(user.username)) { %>
+				<div class="user" style="width: 100%;">
+					<% if (u.has_avatar) { %>
+						<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
+					<% } else { %>
+						<div class = "avatar_placeholder"></div>
+					<% } %>
+					<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
+				</div>
+			<% } %>
+		</div>
+	</div>
 	
 	<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
 		

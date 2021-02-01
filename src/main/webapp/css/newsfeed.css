@@ -6,12 +6,34 @@ html {
 }
 
 main {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	overflow: visible;
+}
+
+.newsfeed {
 	width: 100%;
 	overflow: visible;
 }
 @media(min-width: 60vh) {
-	main {
+	.newsfeed {
 		width: min(60vh, 100%);
-		margin-left: calc( (100% - min(60vh, 100%)) / 2 );
 	}
 }
+
+.following_box {
+	display: none;
+	position: fixed;
+	top: 5em;
+	height: 80vh;
+	right: 2vh;
+	width: 45vh;
+	overflow-Y: scroll;
+}
+@media(min-width: 160vh) {
+	.following_box {
+		display: block;
+	}
+}
+
