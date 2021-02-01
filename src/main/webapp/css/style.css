@@ -158,7 +158,7 @@ nav div * {
 	padding-right: 0.75em;
 	border-right: 1px solid forestgreen;
 }
-.username {
+.user .username, .post_header .username {
 	float: left;
 	padding-left: 0.75em;
 	color: grey;
