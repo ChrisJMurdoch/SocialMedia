@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageProcessor {
 	
-	private final static int THUMBNAIL_WIDTH = 1440;
+	public final static int THUMBNAIL_WIDTH = 1440;
 	
 	/* Clips and scales image */
 	public static BufferedImage thumbnail(BufferedImage original) {
