@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +11,12 @@ import javax.servlet.http.HttpSession;
 import persistence.Database;
 import persistence.Database.User;
 
-public class Follow extends HttpServlet {
+public class Like extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GET request at follow servlet");
+		System.out.println("GET request at like servlet");
 		
 		// Redirect to landing page
 		response.sendRedirect("/");
@@ -32,18 +33,18 @@ public class Follow extends HttpServlet {
 		}
 		
 		// Get parameters
-		String follow = request.getParameter("follow");
+		String post_id = request.getParameter("post_id");
 		
 		// Validate post data
-		if (follow==null) {
+		if (post_id==null) {
 			response.sendRedirect("/");
 			return;
 		}
 		
 		// Update database
-		Database.follow(username, follow);
+		Database.like(username, post_id);
 		
 		// Redirect to landing page
-		response.sendRedirect("/users");
+		response.sendRedirect("/");
 	}
 }

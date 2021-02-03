@@ -17,7 +17,7 @@ public class Register extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
-	public enum RegisterResult { SUCCESS, EMAIL_USED, EMAIL_INVALID, USERNAME_USED, USERNAME_INVALID, PASSWORD_INVALID, PASSWORD_MISMATCH }
+	public enum RegisterResult { SUCCESS, EMAIL_USED, EMAIL_INVALID, USERNAME_USED, USERNAME_INVALID, PASSWORD_INVALID }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET request at register servlet");
@@ -31,14 +31,16 @@ public class Register extends HttpServlet {
 		
 		// Validate registration
 		try {
-			RegisterResult result = validate( request.getParameter("email"), request.getParameter("username"), request.getParameter("password"), request.getParameter("check") );
+			RegisterResult result = validate( request.getParameter("email"), request.getParameter("username"), request.getParameter("password") );
 			if ( result == RegisterResult.SUCCESS ) {
 				System.out.println( "Registration success." );
 				session.removeAttribute("register_failure");
-				session.setAttribute("username", request.getParameter("username"));
 				
 				// Register user in database
 				Database.createUser( request.getParameter("username"), request.getParameter("email"), Password.hash(request.getParameter("password")) );
+				
+				// Set session
+				session.setAttribute( "user", Database.getUser(request.getParameter("username")) );
 			} else {
 				System.err.println(result);
 				session.setAttribute("register_failure", result);
@@ -51,7 +53,7 @@ public class Register extends HttpServlet {
 		response.sendRedirect("/");
 	}
 	
-	private RegisterResult validate(String email, String username, String password, String check) throws SQLException {
+	private RegisterResult validate(String email, String username, String password) throws SQLException {
 		
 		// Validate email
 		String[] atSplit = email.split("@");
@@ -68,10 +70,6 @@ public class Register extends HttpServlet {
 		// Validate password
 		if (password.length()<5)
 			return RegisterResult.PASSWORD_INVALID;
-		
-		// Match passwords
-		if (!password.equals(check))
-			return RegisterResult.PASSWORD_MISMATCH;
 		
 		// Email exists
 		if (Database.exists("users", "email", email))

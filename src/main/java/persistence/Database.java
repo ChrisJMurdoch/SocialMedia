@@ -18,6 +18,12 @@ public class Database {
 	
 	// ===== UTILITY =====
 	
+	/** Take in a user-submitted String, and escape any SQL code */
+	private static String sanitise(String input) {
+		// TODO
+		return null;
+	}
+	
 	/** Check whether or not a value exists */
 	public static boolean exists(String table, String column, String value) {
 		LinkedList<String[]> result = DatabaseDirect.query("SELECT * FROM " + table + " WHERE " + column + " = '" + value + "'");
@@ -32,33 +38,111 @@ public class Database {
 	
 	// ===== QUERIES =====
 	
-	/** Return list of all users */
-	public static LinkedList<User> getUsers() {
-		return getRows( "SELECT * FROM users", User.class);
+	/** Return user that matches given username */
+	public static User getUser(String username) {
+		LinkedList<User> result = getRows( "SELECT * FROM users WHERE username = '" + username + "'", User.class);
+		return result.size()>0 ? result.get(0) : null;
 	}
-	
-	/** Return list of posts from all users */
-	public static LinkedList<Post> getAllPosts() {
-		return getRows( "SELECT * FROM posts ORDER BY posted_at DESC;", Post.class);
+
+	/** Get followers */
+	public static LinkedList<User> getFollowers(String username) {
+		return getRows(
+			"SELECT users.* FROM " +
+				"users JOIN " +
+				"following ON users.username = following.follower AND following.followed = '"+username+"';",
+			User.class);
 	}
-	
-	/** Return list of posts for given user */
-	public static LinkedList<Post> getUserPosts(String user) {
-		return getRows( "SELECT * FROM posts WHERE username = '" + user + "' ORDER BY posted_at DESC;", Post.class);
+
+	/** Get followed */
+	public static LinkedList<User> getFollowed(String username) {
+		return getRows(
+			"SELECT users.* FROM " +
+				"users JOIN " +
+				"following ON users.username = following.followed AND following.follower = '"+username+"';",
+			User.class);
 	}
-	
-	/** Return list of posts from all users followed by given user */
-	public static LinkedList<Post> getFollowedUserPosts(String user) {
-		return getRows( "SELECT posts.* FROM following JOIN posts ON following.followed = posts.username WHERE following.follower = '" + user + "' ORDER BY posted_at DESC;", Post.class);
+
+	/** Get users following user */
+	public static LinkedList<User> getFollowableUsers(String username) {
+		return getRows(
+			"SELECT users.* FROM users " +
+				"WHERE users.username != '"+username+"' " +
+			"EXCEPT SELECT users.* FROM " +
+				"users JOIN " +
+				"following ON users.username = following.followed " +
+				"WHERE following.follower = '"+username+"';",
+			User.class);
+	}
+
+	/** Get posts from user */
+	public static LinkedList<Post> getUserPosts(String username, String observer) {
+		return getRows(
+				"SELECT posts.*, COUNT(awards) AS likes, bool_or(awards.sender = '"+observer+"') as liked FROM " +
+					"posts LEFT JOIN " +
+					"awards ON posts.id = awards.post AND awards.award = 'like' " +
+					"WHERE posts.username = '"+username+"' " +
+					"GROUP BY posts.id " +
+					"ORDER BY posts.posted_at DESC;",
+			Post.class);
+	}
+
+	/** Get posts from user + followed users */
+	public static LinkedList<Post> getNewsfeedPosts(String username) {
+		return getRows(
+			"SELECT DISTINCT posts_with_likes.* FROM " +
+				"( " +
+					"SELECT posts.*, COUNT(awards) AS likes, bool_or(awards.sender = '"+username+"') as liked FROM " +
+						"posts LEFT JOIN " +
+						"awards ON posts.id = awards.post AND awards.award = 'like' " +
+						"GROUP BY posts.id " +
+				") AS posts_with_likes JOIN " +
+				"following ON posts_with_likes.username = following.followed AND ( following.follower = '"+username+"' OR posts_with_likes.username = '"+username+"' ) " +
+				"ORDER BY posts_with_likes.posted_at DESC;",
+			Post.class);
+	}
+
+	/** Get users with most likes */
+	public static LinkedList<LeaderboardPosting> mostLikes() {
+		return getRows(
+			"SELECT users.username, users.has_avatar, COUNT(awards) AS likes FROM " +
+				"users LEFT JOIN " +
+				"posts ON users.username = posts.username LEFT JOIN " +
+				"awards ON posts.id = awards.post AND awards.award = 'like' " +
+				"GROUP BY users.username " +
+				"ORDER BY likes DESC " +
+				"LIMIT 5;",
+			LeaderboardPosting.class);
+	}
+
+	/** Get users with most posts */
+	public static LinkedList<LeaderboardPosting> mostPosts() {
+		return getRows(
+			"SELECT users.username, users.has_avatar, COUNT(posts) AS posts FROM " +
+				"users LEFT JOIN " +
+				"posts ON users.username = posts.username " +
+				"GROUP BY users.username " +
+				"ORDER BY posts DESC " +
+				"LIMIT 5;",
+			LeaderboardPosting.class);
 	}
 	
 	// ===== EXECUTIONS =====
-
+	
+	/** Like user post */
+	public static void like(String username, String post_id) {
+		DatabaseDirect.execute("INSERT INTO awards VALUES('"+username+"', 'like', "+post_id+");");
+	}
+	
+	/** Unlike user post */
+	public static void unlike(String username, String post_id) {
+		DatabaseDirect.execute("DELETE FROM awards WHERE sender = '"+username+"' AND award = 'like' AND post = "+post_id+";");
+	}
+	
 	/** Create user in database */
 	public static void createUser(String username, String email, String hash) {
-		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"' )");
+		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT )");
 	}
-
+	
 	/** Create post in database and return id number */
 	public static int createPost(String user, String title, String description, String imageType) {
 		DatabaseDirect.execute( "INSERT INTO posts VALUES ( DEFAULT, '"+user+"', '"+title+"', '"+description+"', '"+imageType+"' )" );
@@ -99,25 +183,43 @@ public class Database {
 	private static abstract class DBRow {
 		abstract void populate(String[] data);
 	}
-	
+
 	public static class User extends DBRow {
 		public String username, email, hash;
+		public boolean has_avatar;
 		@Override
 		public void populate(String[] data) {
-			this.username = data[0];
-			this.email = data[1];
-			this.hash = data[2];
+			username = data[0];
+			email = data[1];
+			hash = data[2];
+			has_avatar = data[3].equals("t");
+		}
+	}
+	public static class LeaderboardPosting extends DBRow {
+		public String username;
+		public boolean has_avatar;
+		public int score;
+		@Override
+		public void populate(String[] data) {
+			username = data[0];
+			has_avatar = data[1].equals("t");
+			score = Integer.parseInt(data[2]);
 		}
 	}
 	public static class Post extends DBRow {
-		public String id, username, title, description, imageType;
+		public String id, username, title, description, imageType, posted_at;
+		public int likes;
+		public boolean liked;
 		@Override
 		public void populate(String[] data) {
-			this.id = data[0];
-			this.username = data[1];
-			this.title = data[2];
-			this.description = data[3];
-			this.imageType = data[4];
+			id = data[0];
+			username = data[1];
+			title = data[2];
+			description = data[3];
+			imageType = data[4];
+			posted_at = data[5];
+			likes = Integer.parseInt(data[6]);
+			liked = data[7]!=null && data[7].equals("t");
 		}
 	}
 }

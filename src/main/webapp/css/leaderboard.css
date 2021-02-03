@@ -1,0 +1,42 @@
+
+html {
+	overflow-y: scroll;
+}
+
+.leaderboard {
+	margin: 0 5em;
+	width: 80%;
+}
+
+.leaderboard .title {
+	margin: 1em;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.posting {
+	margin: 1em;
+	font-size: 1.5rem;
+	height: 2em;
+	background-color: white;
+	border-radius: 1em;
+}
+.posting * {
+	display: inline-block;
+    vertical-align: top;
+}
+.posting img, .posting .avatar_placeholder {
+	width: 2em;
+	height: 2em;
+	background-color: lightgrey;
+}
+.posting .username, .posting .score {
+	margin: 0.5em;
+	height: 1em;
+	line-height: 1em;
+}
+.posting .score {
+	float: right;
+	width: 2em;
+	text-align: center;
+}

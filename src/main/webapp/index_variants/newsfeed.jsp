@@ -3,43 +3,97 @@
 <html>
 
 <head>
-	<meta charset="ISO-8859-1">
+	
+	<!-- METADATA -->
+	<meta charset="UTF-8">
 	<title>Picturn</title>
-	<script src="../javascript/script.js"></script>
+	
+	<!-- COMMON INCLUDES -->
+	<script src="./javascript/script.js"></script>
 	<link rel="stylesheet" href="./css/style.css">
-	<link rel="stylesheet" href="./css/newsfeed.css">
+	
+	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<%@ page import = "persistence.Database" %>
+	
+	<!-- SESSION -->
+	<%@ page import="persistence.Database" %>
+	<%
+		// Get session and user data
+		Database.User user = (Database.User)session.getAttribute("user");
+		
+		// Add dummy user if null
+		if (user==null) {
+			user = new Database.User();
+			String[] dummy = {"DEFAULT_USER", "default@gmail.com", "dummy_hash", "f"};
+			user.populate(dummy);
+		}
+	%>
+	
+	<!-- PAGE-SPECIFIC RESOURCES -->
+	<link rel="stylesheet" href="./css/newsfeed.css">
+	<script src="./javascript/newsfeed.js"></script>
+	
 </head>
 
 <body>
 	
+	<!-- NAVIGATION BAR -->
 	<nav>
+		<div><a href="/">Picturn</a></div>
+		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
-			<a href="./">Picturn</a>
-		</div>
-		<div style="width: 40%;">
-			<input class="searchbar" type="text" placeholder="Search Picturn...">
-		</div>
-		<div>
+			<a href="/leaderboard">Leaderboard</a>
+			<a href="/users">Find Users</a>
 			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
-			<a href="users/<%=session.getAttribute("username")%>"><%=session.getAttribute("username")%></a>
-			<a href="logout">Log Out</a>
+			<a href="/users/<%=user.username%>"><%=user.username%></a>
+			<a href="/logout">Log Out</a>
 		</div>
 	</nav>
 	
 	<div id="screen" onclick="hide('screen','newpost')"></div>
 	
 	<main>
-		<!-- Loop through posts and generate html -->
-		<% for (Database.Post post : Database.getAllPosts()) { %>
-			<div class="post" id="<%= post.id %>">
-				<div class="title"><span style="color: black"><%= post.username %></span> - <%= post.title %></div>
-				<img src = "https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
-				<div class="description"><%=post.description%></div>
-			</div>
-		<% } %>
+		<div class="newsfeed">
+			<!-- Loop through posts and generate html -->
+			<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
+				<div class="post" id="<%= post.id %>">
+					<div class="post_header">
+						<% String time = post.posted_at.split(" ")[0]; %>
+						<div class="timestamp"><%=time%></div>
+						<div class="username"><%=post.username%></div>
+						<div class="like_box">
+							<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
+							<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
+							<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+						</div>
+					</div>
+					<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
+					<% if (!post.description.equals("")) { %>
+						<div class="post_footer"><%=post.description%></div>
+						<% } %>
+				</div>
+			<% } %>
+		</div>
 	</main>
+	
+	<!-- <div class="notifications_box">No notifications to show</div> -->
+	
+	<div class="following_box">
+		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Following</div>
+		<!-- USER LIST -->
+		<div class="user_list">
+			<% for(Database.User u : Database.getFollowed(user.username)) { %>
+				<div class="user" style="width: 100%;">
+					<% if (u.has_avatar) { %>
+						<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
+					<% } else { %>
+						<div class = "avatar_placeholder"></div>
+					<% } %>
+					<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
+				</div>
+			<% } %>
+		</div>
+	</div>
 	
 	<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
 		

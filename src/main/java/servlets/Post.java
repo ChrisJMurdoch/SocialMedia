@@ -18,9 +18,11 @@ import javax.servlet.http.Part;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import asynchronous.ImageUploader;
 import image.ImageProcessor;
 import persistence.Backblaze;
 import persistence.Database;
+import persistence.Database.User;
 
 @WebServlet("/upload")
 @MultipartConfig
@@ -39,7 +41,7 @@ public class Post extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		// Ensure logged in
-		String username = (String)session.getAttribute("username");
+		String username = ((User)session.getAttribute("user")).username;
 		if (username==null) {
 			response.sendRedirect("/");
 			return;
@@ -76,34 +78,9 @@ public class Post extends HttpServlet {
 			}
 		}
 		
-		// Create thumbnail
-		BufferedImage thumbnail = ImageProcessor.thumbnail(original);
-		
-		// Upload to database and backblaze
-		{
-			ByteArrayOutputStream originalOS = new ByteArrayOutputStream(), thumbnailOS = new ByteArrayOutputStream();
-			try {
-				// Create database entry and get reference id for Backblaze
-				int id = Database.createPost(username, title, description, filetype);
-				
-				// Extract image binary data
-				ImageIO.write(original, filetype, originalOS);
-				ImageIO.write(thumbnail, "jpg", thumbnailOS);
-				
-				// Upload original and thumbnail to Backblaze with reference id
-				Backblaze.upload(id+"og."+filetype, originalOS.toByteArray());
-				Backblaze.upload(id+"tn.jpg", thumbnailOS.toByteArray());
-				
-			} catch (B2Exception | IOException e) {
-				e.printStackTrace();
-				
-			} finally {
-				if(originalOS!=null)
-					originalOS.close();
-				if(thumbnailOS!=null)
-					thumbnailOS.close();
-			}
-		}
+		// Upload image to database and backblaze asynchronously
+		ImageUploader up = new ImageUploader(username, title, description, filetype, original);
+		new Thread(up).start();
 		
 		response.sendRedirect("/");
 	}

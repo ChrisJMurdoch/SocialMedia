@@ -10,6 +10,7 @@ import javax.servlet.ServletContextListener;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import credentials.CredentialLoader;
 import persistence.Backblaze;
 import persistence.Database;
 import persistence.Database.Post;
@@ -21,6 +22,7 @@ public class Lifetime implements ServletContextListener {
     public Lifetime() {
     	
         System.out.println("\n=== Server starting ===");
+        CredentialLoader.init();
         Database.connect();
 		Backblaze.connect();
         System.out.println("=== Server started ===\n");
@@ -30,7 +32,7 @@ public class Lifetime implements ServletContextListener {
     
     public void contextDestroyed(ServletContextEvent arg0)  {
     	
-    	System.out.println("\n=== Server closing ===");
+    	System.out.println("\n\n=== Server closing ===");
     	
     	// Close JDBC drivers
     	System.out.println("Deregistering drivers...");
@@ -51,15 +53,4 @@ public class Lifetime implements ServletContextListener {
     }
     
     public void contextInitialized(ServletContextEvent arg0)  {}
-    
-    private void debug() {
-    	System.out.println("=== Debug ===");
-    	System.out.println("Database:");
-    	for (User user : Database.getUsers()) {
-    		System.out.println(" - " + user.username + ": " + user.email);
-    		for (Post post : Database.getUserPosts(user.username))
-    			System.out.println("    - " + post.title);
-    	}
-    	System.out.println("=== Done ===\n");
-    }
 }

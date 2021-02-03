@@ -9,6 +9,8 @@ import java.util.LinkedList;
 
 import org.postgresql.Driver;
 
+import credentials.CredentialLoader;
+
 /** Direct interface to PostgreSQL database.  For most purposes, the Database class provides more user-friendly functions */
 public class DatabaseDirect {
 	
@@ -26,12 +28,12 @@ public class DatabaseDirect {
 		}
 		
 		// Get secret information from environment
-		String user = System.getenv("db_user");
-		String pass = System.getenv("db_pass");
+		String user = CredentialLoader.DB_USER;
+		String pass = CredentialLoader.DB_PASS;
 		
 		// No credentials
 		if (user==null || pass==null) {
-			System.out.println("Please add db_user and db_pass to environment variables.");
+			System.out.println("No credentials set.");
 			System.out.println("Database failed to connect.");
 			return;
 		}
