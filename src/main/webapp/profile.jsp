@@ -8,15 +8,11 @@
 	
 	<!-- GLOBAL LINKS -->
 	<script src="/javascript/script.js"></script>
-	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/global.css">
 	
 	<!-- FONTS -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<!-- PAGE-SPECIFIC LINKS -->
-	<script src="/javascript/profile.js" defer></script>
-	<link rel="stylesheet" href="/css/profile.css">
 	
 	<!-- SESSION -->
 	<%@ page import="persistence.Database" %>
@@ -32,6 +28,12 @@
 			user.populate(dummy);
 		}
 	%>
+	
+	<!-- PAGE-SPECIFIC LINKS -->
+	<link rel="stylesheet" href="/css/pages/profile.css">
+	<link rel="stylesheet" href="/css/components/userpost.css">
+	<link rel="stylesheet" href="/css/components/usercard.css">
+	<script src="/javascript/profile.js" defer></script>
 	
 </head>
 <body>

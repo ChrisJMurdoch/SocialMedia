@@ -10,7 +10,7 @@
 	
 	<!-- COMMON INCLUDES -->
 	<script src="./javascript/script.js"></script>
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/global.css">
 	
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,10 @@
 	%>
 	
 	<!-- PAGE-SPECIFIC RESOURCES -->
-	<link rel="stylesheet" href="./css/newsfeed.css">
+	<link rel="stylesheet" href="./css/pages/newsfeed.css">
+	<link rel="stylesheet" href="./css/components/userpost.css">
+	<link rel="stylesheet" href="./css/components/usercard.css">
+	<link rel="stylesheet" href="./css/components/newpostform.css">
 	<script src="./javascript/newsfeed.js"></script>
 	
 </head>
@@ -42,9 +45,9 @@
 		<div><a href="/">Picturn</a></div>
 		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
+			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 			<a href="/leaderboard">Leaderboard</a>
 			<a href="/users">Find Users</a>
-			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
 			<a href="/logout">Log Out</a>
 		</div>

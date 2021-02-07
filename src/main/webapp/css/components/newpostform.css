@@ -1,0 +1,32 @@
+
+.newpost_form {
+	visibility: hidden;
+	
+	z-index: 3;
+	position: fixed;
+	padding: 1em;
+	
+	/* Centre */
+	right: 50%;
+	top: 50%;
+	transform: translate(50%, -50%);
+	
+	/* Use em to preserve number of text lines */
+	width: 17em;
+	
+	font-size: 1.5rem;
+	border-radius: 10px;
+	background-color: white;
+	box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+#file_label {
+	display: inline-block;
+	width: 15em;
+	height: 15em;
+	padding-top: 7em;
+	text-align: center;
+	border-radius: 5px;
+	color: dimgrey;
+	background-color: whitesmoke;
+}

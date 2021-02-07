@@ -10,7 +10,7 @@
 	
 	<!-- COMMON INCLUDES -->
 	<script src="./javascript/script.js"></script>
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/global.css">
 	
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
 	<%@ page import="servlets.Login, servlets.Register" %>
 	
 	<!-- PAGE-SPECIFIC RESOURCES -->
-	<link rel="stylesheet" href="./css/loginscreen.css">
+	<link rel="stylesheet" href="./css/pages/loginscreen.css">
 	
 </head>
 

@@ -1,0 +1,109 @@
+
+/* Functional overrides */
+
+* {
+	/* Default text style */
+	font-family: Quicksand, Roboto, Arial;
+	font-weight: 400;
+	
+	/* Auto-centre and cover images by default */
+	background-size: cover;
+	background-position: center;
+	
+	/* Useful alternative defaults */
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+html {
+	/* Font height scales with window height */
+	font-size: 2vh;
+	/* Default scrolling for whole page */
+	overflow-Y: scroll;
+}
+
+/* Remove default margin and use app-sizing */
+body {
+	margin: 0;
+	width: 100%;
+	background-color: whitesmoke;
+}
+
+/* Colour interactive text accent green */
+a, input[type=submit], button {
+	color: forestgreen;
+	text-decoration: none;
+}
+
+/* React to hovering */
+a:hover, input:hover, button:hover {
+	opacity: 0.6;
+}
+
+/* Funtional JS elements */
+
+/* Make element invisible without removing from document */
+.hide {
+	position: absolute;
+	opacity: 0;
+	z-index: -1;
+}
+.hide:hover {
+	opacity: 0;
+}
+
+/* Global themes */
+
+/* Use nicer default styling for inputs */
+input {
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	text-align: left;
+	background: none;
+	border: none;
+}
+input:focus {
+	outline: none;
+}
+
+/* Dims content to focus single object */
+#screen {
+	visibility: hidden;
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	opacity: 0.75;
+	background-color: black;
+}
+
+/* All page CSS */
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 30px 0 0.5em;
+	width: 100%;
+	height: 2em;
+	background-color: white;
+	font-size: 1.2rem;
+	box-shadow: 0 0 10px lightgrey;
+}
+nav div {
+	display: inline-block;
+	height: 100%;
+}
+nav div * {
+	display: inline-block;
+	margin: 0.4em;
+	height: 1.2em;
+}
+.searchbar {
+	margin: 0.3em;
+	padding: 0 6px;
+	width: min(90vw, 500px);
+	height: 1.4em;
+	border-radius: 3px;
+	background-color: rgb(240,240,240);
+}

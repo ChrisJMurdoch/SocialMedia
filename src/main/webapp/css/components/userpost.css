@@ -1,0 +1,48 @@
+
+.post {
+	/* Invisible until loaded */
+	visibility: hidden;
+	margin: 20px 0;
+	width: 100%;
+	border-radius: 7px;
+	box-shadow: 0 0 15px lightgrey;
+	background-color: white;
+}
+.post_image {
+	display: block;
+	width: 100%;
+}
+.post_header {
+	padding: 0.75em;
+	width: 100%;
+	border-bottom: 1px solid lightgrey;
+	line-height: 1em;
+}
+.timestamp {
+	float: left;
+	padding-right: 0.75em;
+	border-right: 1px solid forestgreen;
+}
+.user .username, .post_header .username {
+	float: left;
+	padding-left: 0.75em;
+	color: grey;
+}
+.like_box {
+	float: right;
+	display: flex;
+	justify-content: space-between;
+	width: 2em;
+	height: 1em;
+}
+.like_button {
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+}
+.post_footer {
+	padding: 0.75em;
+	width: 100%;
+	border-top: 1px solid lightgrey;
+	line-height: 1em;
+}

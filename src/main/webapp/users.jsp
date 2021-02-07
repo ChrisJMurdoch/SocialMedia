@@ -10,7 +10,7 @@
 	
 	<!-- COMMON INCLUDES -->
 	<script src="./javascript/script.js"></script>
-	<link rel="stylesheet" href="./css/style.css">
+	<link rel="stylesheet" href="./css/global.css">
 	
 	<!-- FONT -->
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,8 @@
 	%>
 	
 	<!-- PAGE SPECIFIC -->
-	<link rel="stylesheet" href="./css/users.css">
+	<link rel="stylesheet" href="./css/pages/users.css">
+	<link rel="stylesheet" href="./css/components/usercard.css">
 	
 </head>
 
