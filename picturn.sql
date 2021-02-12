@@ -34,3 +34,11 @@ SELECT users.username, users.has_avatar, COUNT(awards) AS likes FROM
 	GROUP BY users.username
 	ORDER BY likes DESC
 	LIMIT 5;
+
+/* mostPosts() */
+SELECT users.username, users.has_avatar, COUNT(posts) AS posts FROM
+	users LEFT JOIN
+	posts ON users.username = posts.username
+	GROUP BY users.username
+	ORDER BY posts DESC
+	LIMIT 5;

@@ -32,7 +32,14 @@
 		    <version>5.7.0</version>
 		    <scope>test</scope>
 		</dependency>
-
+		
+		<!-- Twilio Sendgrid emailing -->
+		<dependency>
+		    <groupId>com.sendgrid</groupId>
+		    <artifactId>sendgrid-java</artifactId>
+		    <version>4.7.1</version>
+		</dependency>
+		
 		<!-- Argon2 security -->
 		<dependency>
 			<groupId>de.mkammerer</groupId>

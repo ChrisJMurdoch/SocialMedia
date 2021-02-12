@@ -33,6 +33,7 @@ body {
 a, input[type=submit], button {
 	color: forestgreen;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 /* React to hovering */

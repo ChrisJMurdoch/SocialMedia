@@ -15,6 +15,7 @@ import persistence.Backblaze;
 import persistence.Database;
 import persistence.Database.Post;
 import persistence.Database.User;
+import persistence.Emailer;
 
 /** Simple listener class to act upon server startup */
 public class Lifetime implements ServletContextListener {
@@ -25,9 +26,9 @@ public class Lifetime implements ServletContextListener {
         CredentialLoader.init();
         Database.connect();
 		Backblaze.connect();
+		Emailer.connect();
         System.out.println("=== Server started ===\n");
         
-        //debug();
     }
     
     public void contextDestroyed(ServletContextEvent arg0)  {
@@ -48,6 +49,7 @@ public class Lifetime implements ServletContextListener {
 
         Database.disconnect();
 		Backblaze.disconnect();
+		Emailer.disconnect();
 		
         System.out.println("=== Server closed ===\n");
     }

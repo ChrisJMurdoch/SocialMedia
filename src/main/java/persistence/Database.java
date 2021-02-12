@@ -3,9 +3,18 @@ package persistence;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.util.LinkedList;
+import java.util.Random;
 
 /** User-friendly DatabaseDirect wrapper class to perform PostgreSQL queries */
 public class Database {
+	
+	// Variables used for email verification
+	private final static Random RANDOM = new Random(System.currentTimeMillis());
+	private final static String VERIFY_CHARACTER_SET =
+		"abcdefghijklmnopqrstuvwxyz" + 
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
+		"0123456789"
+	;
 	
 	// ===== CONNECTION =====
 	
@@ -140,7 +149,11 @@ public class Database {
 	
 	/** Create user in database */
 	public static void createUser(String username, String email, String hash) {
-		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT )");
+		String verify = "";
+		for (int i=0; i<6; i++)
+			verify += VERIFY_CHARACTER_SET.charAt(RANDOM.nextInt(VERIFY_CHARACTER_SET.length()));
+		System.out.println("Verification code: ["+verify+"]");
+		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT, '"+verify+"' )");
 	}
 	
 	/** Create post in database and return id number */
@@ -158,6 +171,11 @@ public class Database {
 	/** Create following entry in database */
 	public static void follow(String follower, String followed) {
 		DatabaseDirect.execute("INSERT INTO following VALUES ( '"+follower+"', '"+followed+"' )");
+	}
+	
+	/** Verify specific user */
+	public static void verify(String user) {
+		DatabaseDirect.execute("UPDATE users SET verify='[TRUE]' WHERE username = '"+user+"';");
 	}
 	
 	// ===== DATA PARSING AND REPRESENTATION =====
@@ -185,7 +203,7 @@ public class Database {
 	}
 
 	public static class User extends DBRow {
-		public String username, email, hash;
+		public String username, email, hash, verify;
 		public boolean has_avatar;
 		@Override
 		public void populate(String[] data) {
@@ -193,6 +211,10 @@ public class Database {
 			email = data[1];
 			hash = data[2];
 			has_avatar = data[3].equals("t");
+			verify = data[4];
+		}
+		public boolean verified() {
+			return verify.equals("[TRUE]");
 		}
 	}
 	public static class LeaderboardPosting extends DBRow {

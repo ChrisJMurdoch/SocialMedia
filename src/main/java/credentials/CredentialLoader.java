@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CredentialLoader {
 	
-	public static String DB_USER, DB_PASS, B2_KEY_ID, B2_APP_KEY;
+	public static String DB_USER, DB_PASS, B2_KEY_ID, B2_APP_KEY, SENDGRID_API;
 	
 	public static void init() {
 		
@@ -26,9 +26,10 @@ public class CredentialLoader {
 		DB_PASS = System.getenv("db_pass");
 		B2_KEY_ID = System.getenv("b2_key_id");
 		B2_APP_KEY = System.getenv("b2_app_key");
+		SENDGRID_API = System.getenv("sendgrid_api");
 		
 		// No credentials
-		if (DB_USER==null || DB_PASS==null || B2_KEY_ID==null || B2_APP_KEY==null) {
+		if (DB_USER==null || DB_PASS==null || B2_KEY_ID==null || B2_APP_KEY==null || SENDGRID_API==null) {
 			System.out.println("No credentials found.  Please get credential .bat or .txt file.");
 			return;
 		}
@@ -47,6 +48,7 @@ public class CredentialLoader {
 			DB_PASS = scanner.nextLine();
 			B2_KEY_ID = scanner.nextLine();
 			B2_APP_KEY = scanner.nextLine();
+			SENDGRID_API = scanner.nextLine();
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

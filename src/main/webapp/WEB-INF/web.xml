@@ -84,6 +84,12 @@
   	<description></description>
   	<servlet-class>servlets.Unlike</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Verify</servlet-name>
+  	<display-name>Verify</display-name>
+  	<description></description>
+  	<servlet-class>servlets.Verify</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>Status</servlet-name>
@@ -116,6 +122,10 @@
   <servlet-mapping>
   	<servlet-name>Unlike</servlet-name>
   	<url-pattern>/unlike</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Verify</servlet-name>
+  	<url-pattern>/verify</url-pattern>
   </servlet-mapping>
   
 </web-app>
