@@ -16,6 +16,12 @@
 		These terms of service govern the rules and regulations regarding use of our website, Picturn.
 	</p>
 	
+	<h3>User</h3>
+	<p>
+		This website is only suitable for users of age 12 and up.  By agreeing to these terms of service, you agree that 
+		you are a minimum 12 years of age at the time of registration.
+	</p>
+	
 	<h3>Cookies</h3>
 	<p>
 		We employ the use of cookies to store information about you between visits to our site.  We do not employ the
