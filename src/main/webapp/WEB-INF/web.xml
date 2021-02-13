@@ -90,6 +90,12 @@
   	<description></description>
   	<servlet-class>servlets.Verify</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ChangePass</servlet-name>
+  	<display-name>ChangePass</display-name>
+  	<description></description>
+  	<servlet-class>servlets.ChangePass</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>Status</servlet-name>
@@ -126,6 +132,10 @@
   <servlet-mapping>
   	<servlet-name>Verify</servlet-name>
   	<url-pattern>/verify</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ChangePass</servlet-name>
+  	<url-pattern>/changepass</url-pattern>
   </servlet-mapping>
   
 </web-app>

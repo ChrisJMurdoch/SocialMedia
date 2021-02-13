@@ -24,6 +24,8 @@ public class FileFilter implements Filter {
 		fileExtensions.put("leaderboard", ".jsp");
 		fileExtensions.put("privacypolicy", ".jsp");
 		fileExtensions.put("termsofservice", ".jsp");
+		fileExtensions.put("changepassword", ".jsp");
+		fileExtensions.put("resetpassword", ".jsp");
 	}
 	
 	/** This function intercepts all incoming requests */

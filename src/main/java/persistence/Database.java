@@ -172,10 +172,15 @@ public class Database {
 	public static void follow(String follower, String followed) {
 		DatabaseDirect.execute("INSERT INTO following VALUES ( '"+follower+"', '"+followed+"' )");
 	}
-	
+
 	/** Verify specific user */
 	public static void verify(String user) {
 		DatabaseDirect.execute("UPDATE users SET verify='[TRUE]' WHERE username = '"+user+"';");
+	}
+
+	/** Change user hash */
+	public static void setHash(String user, String hash) {
+		DatabaseDirect.execute("UPDATE users SET hash='"+hash+"' WHERE username = '"+user+"';");
 	}
 	
 	// ===== DATA PARSING AND REPRESENTATION =====
