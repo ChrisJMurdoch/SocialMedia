@@ -5,16 +5,10 @@ import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.Random;
 
+import security.Generation;
+
 /** User-friendly DatabaseDirect wrapper class to perform PostgreSQL queries */
 public class Database {
-	
-	// Variables used for email verification
-	private final static Random RANDOM = new Random(System.currentTimeMillis());
-	private final static String VERIFY_CHARACTER_SET =
-		"abcdefghijklmnopqrstuvwxyz" + 
-		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
-		"0123456789"
-	;
 	
 	// ===== CONNECTION =====
 	
@@ -46,10 +40,16 @@ public class Database {
 	}
 	
 	// ===== QUERIES =====
-	
+
 	/** Return user that matches given username */
 	public static User getUser(String username) {
 		LinkedList<User> result = getRows( "SELECT * FROM users WHERE username = '" + username + "'", User.class);
+		return result.size()>0 ? result.get(0) : null;
+	}
+
+	/** Return user that matches given email */
+	public static User getUserByEmail(String email) {
+		LinkedList<User> result = getRows( "SELECT * FROM users WHERE email = '" + email + "'", User.class);
 		return result.size()>0 ? result.get(0) : null;
 	}
 
@@ -149,11 +149,10 @@ public class Database {
 	
 	/** Create user in database */
 	public static void createUser(String username, String email, String hash) {
-		String verify = "";
-		for (int i=0; i<6; i++)
-			verify += VERIFY_CHARACTER_SET.charAt(RANDOM.nextInt(VERIFY_CHARACTER_SET.length()));
+		String verify = Generation.randomString(6, Generation.ALPHANUMERIC);
+		String reset = Generation.randomString(20, Generation.ALPHANUMERIC);
 		System.out.println("Verification code: ["+verify+"]");
-		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT, '"+verify+"' )");
+		DatabaseDirect.execute("INSERT INTO users VALUES ( '"+username+"', '"+email+"', '"+hash+"', DEFAULT, '"+verify+"', '"+reset+"' )");
 	}
 	
 	/** Create post in database and return id number */
@@ -208,7 +207,7 @@ public class Database {
 	}
 
 	public static class User extends DBRow {
-		public String username, email, hash, verify;
+		public String username, email, hash, verify, reset;
 		public boolean has_avatar;
 		@Override
 		public void populate(String[] data) {
@@ -217,6 +216,7 @@ public class Database {
 			hash = data[2];
 			has_avatar = data[3].equals("t");
 			verify = data[4];
+			reset = data[5];
 		}
 		public boolean verified() {
 			return verify.equals("[TRUE]");

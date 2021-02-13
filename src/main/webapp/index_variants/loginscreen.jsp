@@ -79,6 +79,7 @@
 		<input type="text" autocomplete="off" name="username" placeholder="<%=lUser%>"><br>
 	   	<input type="password" autocomplete="off" name="password" placeholder="<%=lPass%>"><br>
 	   	<input type="submit" value="Log In">
+	   	<a href="/resetpassword">Forgot Password</a>
 	</form>
 	
 	<form id="register" class="centre_form" method="post" action="register" style="visibility: hidden;">

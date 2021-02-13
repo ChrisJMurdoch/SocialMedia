@@ -96,6 +96,18 @@
   	<description></description>
   	<servlet-class>servlets.ChangePass</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ResetPass</servlet-name>
+  	<display-name>ResetPass</display-name>
+  	<description></description>
+  	<servlet-class>servlets.ResetPass</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SetPass</servlet-name>
+  	<display-name>SetPass</display-name>
+  	<description></description>
+  	<servlet-class>servlets.SetPass</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>Status</servlet-name>
@@ -136,6 +148,14 @@
   <servlet-mapping>
   	<servlet-name>ChangePass</servlet-name>
   	<url-pattern>/changepass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ResetPass</servlet-name>
+  	<url-pattern>/resetpass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SetPass</servlet-name>
+  	<url-pattern>/setpass</url-pattern>
   </servlet-mapping>
   
 </web-app>
