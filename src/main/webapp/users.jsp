@@ -51,18 +51,6 @@
 			</div>
 		</nav>
 		
-		<!-- NAVIGATION ELEMENTS -->
-		<div id="screen" onclick="hide('screen','newpost')"></div>
-		<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
-			
-			<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
-			<input id="file" class="hide" type="file" name="file" accept="image/*" onchange="displayImage(event)">
-			
-			<input type="text" autocomplete="off" name="title" placeholder="Title"><br>
-			<input type="text" autocomplete="off" name="description" placeholder="Description"><br>
-			<input type="submit" value="Post">
-		</form>
-		
 		<!-- USER LIST -->
 		<div class="user_list">
 			<% for(Database.User u : Database.getFollowableUsers(user.username)) { %>
