@@ -87,7 +87,7 @@
 			LinkedList<Database.Notification> notifications = Database.getNotifications(user.username);
 			for(int i=notifications.size()-1; i>=0; i--) {
 		%>
-			<h3><%= notifications.get(i).message %></h3>
+			<h3 style="background-color: white; border-radius: 0.5em; padding: 4px 2px; box-shadow: 0 0 10px lightgrey;"><%= notifications.get(i).message %></h3>
 		<% } %>
 	</div>
 	
