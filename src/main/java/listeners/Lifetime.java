@@ -10,6 +10,7 @@ import javax.servlet.ServletContextListener;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import autonomous.FacialRecognition;
 import credentials.CredentialLoader;
 import persistence.Backblaze;
 import persistence.Database;
@@ -27,6 +28,7 @@ public class Lifetime implements ServletContextListener {
         Database.connect();
 		Backblaze.connect();
 		Emailer.connect();
+        FacialRecognition.init();
         System.out.println("=== Server started ===\n");
         
     }
