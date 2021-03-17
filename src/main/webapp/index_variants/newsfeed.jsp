@@ -16,7 +16,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	
 	<!-- SESSION -->
-	<%@ page import="persistence.Database" %>
+	<%@ page import="persistence.Database, java.util.LinkedList" %>
 	<%
 		// Get session and user data
 		Database.User user = (Database.User)session.getAttribute("user");
@@ -83,8 +83,11 @@
 	
 	<div class="notifications_box">
 		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Notifications</div>
-		<% for(Database.Notification n : Database.getNotifications(user.username)) { %>
-			<h3><%= n.message %></h3>
+		<%
+			LinkedList<Database.Notification> notifications = Database.getNotifications(user.username);
+			for(int i=notifications.size()-1; i>=0; i--) {
+		%>
+			<h3><%= notifications.get(i).message %></h3>
 		<% } %>
 	</div>
 	
