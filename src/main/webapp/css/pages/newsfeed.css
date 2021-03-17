@@ -37,3 +37,17 @@ main {
 	}
 }
 
+.notifications_box {
+	display: none;
+	position: fixed;
+	top: 5em;
+	height: 80vh;
+	left: 2vh;
+	width: 45vh;
+	overflow-Y: scroll;
+}
+@media(min-width: 160vh) {
+	.notifications_box {
+		display: block;
+	}
+}

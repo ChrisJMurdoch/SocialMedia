@@ -70,7 +70,9 @@ public class ImageUploader implements Runnable {
 				}
 			}
 		}
-
+		
+		Database.addNotification(username, title + " successfully uploaded!");
+		
 		System.out.println("Image uploading thread finished.");
 		
 	}

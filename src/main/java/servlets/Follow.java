@@ -42,6 +42,7 @@ public class Follow extends HttpServlet {
 		
 		// Update database
 		Database.follow(username, follow);
+		Database.addNotification(follow, username + " followed you!");
 		
 		// Redirect to landing page
 		response.sendRedirect("/users");

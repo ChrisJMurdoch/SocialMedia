@@ -81,6 +81,13 @@
 	
 	<!-- <div class="notifications_box">No notifications to show</div> -->
 	
+	<div class="notifications_box">
+		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Notifications</div>
+		<% for(Database.Notification n : Database.getNotifications(user.username)) { %>
+			<h3><%= n.message %></h3>
+		<% } %>
+	</div>
+	
 	<div class="following_box">
 		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Following</div>
 		<!-- USER LIST -->

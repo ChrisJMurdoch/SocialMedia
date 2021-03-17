@@ -62,6 +62,15 @@ public class Database {
 			User.class);
 	}
 
+	/** Get user notifications */
+	public static LinkedList<Notification> getNotifications(String username) {
+		return getRows(
+			"SELECT * FROM " +
+				"notifications " +
+				"WHERE notifications.user = '"+username+"';",
+				Notification.class);
+	}
+
 	/** Get followed */
 	public static LinkedList<User> getFollowed(String username) {
 		return getRows(
@@ -136,7 +145,12 @@ public class Database {
 	}
 	
 	// ===== EXECUTIONS =====
-	
+
+	/** Add notification */
+	public static void addNotification(String username, String message) {
+		DatabaseDirect.execute("INSERT INTO notifications VALUES('"+username+"', '"+message+"', false);");
+	}
+
 	/** Like user post */
 	public static void like(String username, String post_id) {
 		DatabaseDirect.execute("INSERT INTO awards VALUES('"+username+"', 'like', "+post_id+");");
@@ -247,6 +261,16 @@ public class Database {
 			posted_at = data[5];
 			likes = Integer.parseInt(data[6]);
 			liked = data[7]!=null && data[7].equals("t");
+		}
+	}
+	public static class Notification extends DBRow {
+		public String user, message;
+		public boolean read;
+		@Override
+		public void populate(String[] data) {
+			user = data[0];
+			message = data[1];
+			read = data[2]!=null && data[2].equals("t");
 		}
 	}
 }
