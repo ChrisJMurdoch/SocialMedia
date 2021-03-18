@@ -1,9 +1,9 @@
 
 # Picturn
 
-3rd-year social media group coursework.
+![C8](https://user-images.githubusercontent.com/46963486/111669498-c458b680-880e-11eb-862d-5cf8445334a5.PNG)
 
-View live at https://picturn.herokuapp.com
+View our photography-based social media live at https://picturn.herokuapp.com
 
 ## Installing locally
 
