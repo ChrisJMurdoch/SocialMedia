@@ -57,7 +57,7 @@
 			<!-- users display picture and change link for adding a new dp -->
 			<div class="display-pic">
 				<img src="../images/defaultIcon.jpg " width="200" alt="">
-				<a href="javascript:void(0);" onclick="show('dp')">Change</a>
+				<a href="javascript:void(0);"  onclick="show('dp')">Change</a>
 			</div>
 			
 			<!-- form which allows users to change dp. invisible until change link is clicked -->
