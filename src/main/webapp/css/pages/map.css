@@ -1,0 +1,36 @@
+/* Overrides */
+
+html {
+	overflow-y: scroll;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	overflow: visible;
+}
+
+#map {
+	width:60%;
+	height: 35pc;
+	position:relative; 
+	left: -15rem; 
+	top:5rem;
+	border:0.2em solid rgb(37, 46, 37);
+    border-radius: 0.5em;
+    overflow:-moz-hidden-unscrollable;
+}
+.post_list {
+	position: fixed;
+	top: 7rem;
+	height: 30pc;
+	right: 10vh;
+	width: 55vh;
+	border:0.2em solid rgb(37, 46, 37);
+    border-radius: 0.5em;
+	background-color: white;
+	text-align: center;
+	font-size: 1.5rem;
+	color: dimgrey;
+}

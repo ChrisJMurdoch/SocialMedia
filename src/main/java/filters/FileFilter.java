@@ -27,6 +27,7 @@ public class FileFilter implements Filter {
 		fileExtensions.put("changepassword", ".jsp");
 		fileExtensions.put("resetpassword", ".jsp");
 		fileExtensions.put("setpassword", ".jsp");
+		fileExtensions.put("map", ".jsp");
 	}
 	
 	/** This function intercepts all incoming requests */
