@@ -3,7 +3,7 @@
 <head>
 
 	<!-- META DATA -->
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Picturn</title>
 	
 	<!-- GLOBAL LINKS -->
@@ -29,11 +29,6 @@
 		}
 	%>
 	
-	<!-- PAGE-SPECIFIC LINKS -->
-	<link rel="stylesheet" href="/css/pages/profile.css">
-	<link rel="stylesheet" href="/css/components/userpost.css">
-	<link rel="stylesheet" href="/css/components/usercard.css">
-	<script src="/javascript/profile.js" defer></script>
 	
 </head>
 <body>
