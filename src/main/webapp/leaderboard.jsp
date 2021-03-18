@@ -53,7 +53,7 @@
 		
 		<div class="leaderboard">
 			<div class="title">Most likes</div>
-			<% for (Database.LeaderboardPosting posting : Database.mostLikes()) { %>
+			<% for (Database.LeaderboardPosting posting : Database.mostLikes(true)) { %>
 				<div class="posting">
 					<% if (posting.has_avatar) { %>
 						<img src = "https://f000.backblazeb2.com/file/picturn/<%= posting.username %>pr.jpg">

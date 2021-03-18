@@ -118,9 +118,9 @@ public class Database {
 				"ORDER BY posts_with_likes.posted_at DESC;",
 			Post.class);
 	}
-
+	
 	/** Get users with most likes */
-	public static LinkedList<LeaderboardPosting> mostLikes() {
+	public static LinkedList<LeaderboardPosting> mostLikes(boolean limit) {
 		return getRows(
 			"SELECT users.username, users.has_avatar, COUNT(awards) AS likes FROM " +
 				"users LEFT JOIN " +
@@ -128,7 +128,7 @@ public class Database {
 				"awards ON posts.id = awards.post AND awards.award = 'like' " +
 				"GROUP BY users.username " +
 				"ORDER BY likes DESC " +
-				"LIMIT 5;",
+				(limit ? "LIMIT 5;" : ";"),
 			LeaderboardPosting.class);
 	}
 

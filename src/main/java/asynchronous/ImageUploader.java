@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import com.backblaze.b2.client.exceptions.B2Exception;
 
+import autonomous.FacialRecognition;
 import image.ImageProcessor;
 import persistence.Backblaze;
 import persistence.Database;
@@ -29,6 +30,13 @@ public class ImageUploader implements Runnable {
 	public void run() {
 		
 		System.out.println("Image uploading thread started...");
+		
+		// Check if image has person
+		if (FacialRecognition.detectFaces(original)) {
+			Database.addNotification(username, title + " upload blocked: human detected.");
+			System.out.println("Human detected, blocking upload.");
+			return;
+		}
 		
 		// Create thumbnail
 		BufferedImage thumbnail = ImageProcessor.thumbnail(original);

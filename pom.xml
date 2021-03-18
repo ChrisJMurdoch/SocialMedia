@@ -25,6 +25,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- OpenCV -->
+		<dependency>
+		    <groupId>org.openpnp</groupId>
+		    <artifactId>opencv</artifactId>
+		    <version>4.3.0-3</version>
+		</dependency>
+
 		<!-- JUnit 5 (Jupiter) -->
 		<dependency>
 		    <groupId>org.junit.jupiter</groupId>
