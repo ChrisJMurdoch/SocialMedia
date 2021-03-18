@@ -15,11 +15,12 @@ main {
 	width:60%;
 	height: 35pc;
 	position:relative; 
-	left: -15rem; 
-	top:5rem;
 	border:0.2em solid rgb(37, 46, 37);
     border-radius: 0.5em;
     overflow:-moz-hidden-unscrollable;
+}
+#map * {
+	overflow: visible !important;
 }
 .post_list {
 	position: fixed;
