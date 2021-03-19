@@ -53,6 +53,11 @@ public class Database {
 		return result.size()>0 ? result.get(0) : null;
 	}
 
+	/** Get comments for post */
+	public static LinkedList<Comment> getComments(int post) {
+		return getRows( "SELECT * FROM comments WHERE post = '"+post+"';", Comment.class);
+	}
+
 	/** Get followers */
 	public static LinkedList<User> getFollowers(String username) {
 		return getRows(
@@ -155,6 +160,11 @@ public class Database {
 	public static void like(String username, String post_id) {
 		DatabaseDirect.execute("INSERT INTO awards VALUES('"+username+"', 'like', "+post_id+");");
 	}
+
+	/** Comment on post */
+	public static void comment(String sender, String message, String post) {
+		DatabaseDirect.execute("INSERT INTO comments VALUES('"+sender+"', '"+message+"', "+post+");");
+	}
 	
 	/** Unlike user post */
 	public static void unlike(String username, String post_id) {
@@ -236,6 +246,14 @@ public class Database {
 			return verify.equals("[TRUE]");
 		}
 	}
+	public static class Comment extends DBRow {
+		public String sender, message;
+		@Override
+		public void populate(String[] data) {
+			sender = data[0];
+			message = data[1];
+		}
+	}
 	public static class LeaderboardPosting extends DBRow {
 		public String username;
 		public boolean has_avatar;
@@ -248,12 +266,12 @@ public class Database {
 		}
 	}
 	public static class Post extends DBRow {
-		public String id, username, title, description, imageType, posted_at;
-		public int likes;
+		public String username, title, description, imageType, posted_at;
+		public int likes, id;
 		public boolean liked;
 		@Override
 		public void populate(String[] data) {
-			id = data[0];
+			id = Integer.parseInt(data[0]);
 			username = data[1];
 			title = data[2];
 			description = data[3];

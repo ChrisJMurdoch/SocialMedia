@@ -108,6 +108,12 @@
   	<description></description>
   	<servlet-class>servlets.SetPass</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>Comment</servlet-name>
+  	<display-name>Comment</display-name>
+  	<description></description>
+  	<servlet-class>servlets.Comment</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>Status</servlet-name>
@@ -156,6 +162,10 @@
   <servlet-mapping>
   	<servlet-name>SetPass</servlet-name>
   	<url-pattern>/setpass</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Comment</servlet-name>
+  	<url-pattern>/comment</url-pattern>
   </servlet-mapping>
   
 </web-app>

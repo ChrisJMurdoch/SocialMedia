@@ -59,21 +59,31 @@
 		<div class="newsfeed">
 			<!-- Loop through posts and generate html -->
 			<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
-				<div class="post" id="<%= post.id %>">
-					<div class="post_header">
-						<% String time = post.posted_at.split(" ")[0]; %>
-						<div class="timestamp"><%=time%></div>
-						<div class="username"><%=post.username%></div>
-						<div class="like_box">
-							<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
-							<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
-							<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+				<div class="post_wrapper">
+					<div class="post" id="<%= post.id %>">
+						<div class="post_header">
+							<% String time = post.posted_at.split(" ")[0]; %>
+							<div class="timestamp"><%=time%></div>
+							<div class="username"><%=post.username%></div>
+							<div class="like_box">
+								<% String heart = post.liked ? "heart-filled" : "heart-empty"; %>
+								<img id="like_button_<%=post.id%>" liked="<%=post.liked%>" class="like_button" src="../images/<%=heart%>.png" onclick="action('<%=post.id%>','<%=post.id%>')"></img>
+								<div id="like_number_<%=post.id%>" class="likes"><%=post.likes%></div>
+							</div>
 						</div>
+						<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
+						<% if (!post.description.equals("")) { %>
+							<div class="post_footer"><%=post.description%></div>
+							<% } %>
 					</div>
-					<img class="post_image" src="https://f000.backblazeb2.com/file/picturn/<%= post.id %>tn.jpg" onload="show('<%= post.id %>')">
-					<% if (!post.description.equals("")) { %>
-						<div class="post_footer"><%=post.description%></div>
-						<% } %>
+					<form class="comment_form" method="post" action="comment">
+						<input type="text" autocomplete="off" name="message" placeholder="Comment..."><br>
+						<input type="hidden" autocomplete="off" name="post" value="<%=post.id%>">
+						<input type="submit" value="Send">
+					</form>
+					<% for (Database.Comment comment : Database.getComments(post.id)) { %>
+						<div class="comment"><span style="font-weight: bold; color: forestgreen"><%=comment.sender%></span> <%=comment.message%></div>
+					<% } %>
 				</div>
 			<% } %>
 		</div>
