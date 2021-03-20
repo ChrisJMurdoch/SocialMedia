@@ -38,4 +38,5 @@ function buildAvatar() {
 	ctx.drawImage(avatarMouth, ((400-avatarMouth.width)/2),80);
 
 	}
+		
 }

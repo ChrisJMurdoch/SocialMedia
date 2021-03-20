@@ -16,7 +16,8 @@
 	
 	<!-- PAGE-SPECIFIC LINKS -->
 	<link rel="stylesheet" href="/css/pages/avatar.css">
-	<script src="/javascript/avatar.js"></script> 
+	<script src="/javascript/avatar.js"></script>
+	<script src="/javascript/downloadAvatar.js"></script> 
 	
 	<!-- SESSION -->
 	<%@ page import="persistence.Database" %>
@@ -57,6 +58,7 @@
 		<canvas id="canvas"></canvas>
 		<br></br>
 		<button onClick="window.location.reload();" id="button">Generate Avatar</button> 
+		<button onclick="DownloadCanvasAsImage();" id="downButton">Download Avatar</button>
 	</div>
 		
 	
