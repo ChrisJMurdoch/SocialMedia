@@ -49,6 +49,7 @@
 			<a href="/leaderboard">Leaderboard</a>
 			<a href="/users">Find Users</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
+			<a href="avatar.jsp">Avatar Creator</a>
 			<a href="/logout">Log Out</a>
 		</div>
 	</nav>
