@@ -14,6 +14,10 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
+	<!-- PAGE-SPECIFIC LINKS -->
+	<link rel="stylesheet" href="/css/pages/avatar.css">
+	<script src="/javascript/avatar.js"></script> 
+	
 	<!-- SESSION -->
 	<%@ page import="persistence.Database" %>
 	<%
@@ -41,9 +45,20 @@
 			<a href="/leaderboard">Leaderboard</a>
 			<a href="/users">Find Users</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
+			<a href="/avatar/">Avatar Creator</a>
 			<a href="/logout">Log Out</a>
 		</div>
 	</nav>
+	
+	<h1 align="center">Avatar Creator</h1>
+		
+	<!-- Shows avatar generated -->
+	<div align="center">
+		<canvas id="canvas"></canvas>
+		<br></br>
+		<button onClick="window.location.reload();" id="button">Generate Avatar</button> 
+	</div>
+		
 	
 	
 </body>
