@@ -16,7 +16,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 	
 	<!-- SESSION -->
-	<%@ page import="persistence.Database, java.util.LinkedList" %>
+	<%@ page import="persistence.Database" %>
 	<%
 		// Get session and user data
 		Database.User user = (Database.User)session.getAttribute("user");
@@ -30,11 +30,9 @@
 	%>
 	
 	<!-- PAGE-SPECIFIC RESOURCES -->
-	<link rel="stylesheet" href="./css/pages/newsfeed.css">
-	<link rel="stylesheet" href="./css/components/userpost.css">
+	<link rel="stylesheet" href="./css/pages/discover.css">
 	<link rel="stylesheet" href="./css/components/usercard.css">
-	<link rel="stylesheet" href="./css/components/newpostform.css">
-	<script src="./javascript/newsfeed.js"></script>
+	<link rel="stylesheet" href="./css/components/userpost.css">
 	
 </head>
 
@@ -43,9 +41,9 @@
 	<!-- NAVIGATION BAR -->
 	<nav>
 		<div><a href="/">Picturn</a></div>
+		
 		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
-			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 			<a href="/leaderboard">Leaderboard</a>
 			<a href="/discover">Discover</a>
 			<a href="/users">Find Users</a>
@@ -55,12 +53,12 @@
 		</div>
 	</nav>
 	
-	<div id="screen" onclick="hide('screen','newpost')"></div>
-	
 	<main>
-		<div class="newsfeed">
+		<div class="discover">
 			<!-- Loop through posts and generate html -->
+			<div class="title">Posts you might be interested in</div>
 			<% for (Database.Post post : Database.getNewsfeedPosts(user.username)) { %>
+			<%if(post.description.contains("#")){ %>
 				<div class="post_wrapper">
 					<div class="post" id="<%= post.id %>">
 						<div class="post_header">
@@ -88,47 +86,10 @@
 					<% } %>
 				</div>
 			<% } %>
+				<% } %>
 		</div>
+		
 	</main>
-	
-	<!-- <div class="notifications_box">No notifications to show</div> -->
-	
-	<div class="notifications_box">
-		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Notifications</div>
-		<%
-			LinkedList<Database.Notification> notifications = Database.getNotifications(user.username);
-			for(int i=notifications.size()-1; i>=0; i--) {
-		%>
-			<h3 style="background-color: white; border-radius: 0.5em; padding: 4px 2px; box-shadow: 0 0 10px lightgrey;"><%= notifications.get(i).message %></h3>
-		<% } %>
-	</div>
-	
-	<div class="following_box">
-		<div style="text-align: center; background-color: white; font-size: 1.5rem; border-radius: 0.2em; color: dimgrey;">Following</div>
-		<!-- USER LIST -->
-		<div class="user_list">
-			<% for(Database.User u : Database.getFollowed(user.username)) { %>
-				<div class="user" style="width: 100%;">
-					<% if (u.has_avatar) { %>
-						<img src = "https://f000.backblazeb2.com/file/picturn/<%= u.username %>pr.jpg">
-					<% } else { %>
-						<div class = "avatar_placeholder"></div>
-					<% } %>
-					<div class="user_name"><a href ="/users/<%= u.username %>" class="inner"><%= u.username %></a></div>
-				</div>
-			<% } %>
-		</div>
-	</div>
-	
-	<form class="newpost_form" id="newpost" method="post" enctype = "multipart/form-data" action="post">
-		
-		<label id="file_label" for="file" style="cursor: pointer;">Image</label><br>
-		<input id="file" class="hide" type="file" name="file" accept="image/*" onchange="displayImage(event)">
-		
-		<input type="text" autocomplete="off" name="title" placeholder="Title"><br>
-		<input type="text" autocomplete="off" name="description" placeholder="Description"><br>
-		<input type="submit" value="Post">
-	</form>
 	
 </body>
 

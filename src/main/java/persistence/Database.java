@@ -108,6 +108,7 @@ public class Database {
 					"ORDER BY posts.posted_at DESC;",
 			Post.class);
 	}
+	
 
 	/** Get posts from user + followed users */
 	public static LinkedList<Post> getNewsfeedPosts(String username) {

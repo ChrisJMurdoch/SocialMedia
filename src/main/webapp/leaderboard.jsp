@@ -43,6 +43,7 @@
 		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
 			<a href="/leaderboard">Leaderboard</a>
+			<a href="/discover">Discover</a>
 			<a href="/users">Find Users</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
 			<a href="avatar.jsp">Avatar Creator</a>

@@ -43,6 +43,7 @@
 		<div>
 			<a href="javascript:void(0);" onclick="show('screen','newpost')">+</a>
 			<a href="/leaderboard">Leaderboard</a>
+			<a href="/discover">Discover</a>
 			<a href="/users">Find Users</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
 			<a href="avatar.jsp">Avatar Creator</a>
