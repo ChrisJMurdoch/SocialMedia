@@ -41,6 +41,7 @@
 	<!-- NAVIGATION BAR -->
 	<nav>
 		<div><a href="/">Picturn</a></div>
+		
 		<div style="width: 40%;"><input class="searchbar" type="text" placeholder="Search Picturn..."></div>
 		<div>
 			<a href="/leaderboard">Leaderboard</a>
