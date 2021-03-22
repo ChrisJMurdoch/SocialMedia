@@ -47,7 +47,7 @@
 			<a href="/discover">Discover</a>
 			<a href="/users">Find Users</a>
 			<a href="/users/<%=user.username%>"><%=user.username%></a>
-			<a href="avatar.jsp">Avatar Creator</a>						<!-- only doesn't load on profile page, same code for each nav bar? -->
+			<a href="/avatar.jsp">Avatar Creator</a>						<!-- only doesn't load on profile page, same code for each nav bar? -->
 			<a href="/logout">Log Out</a>
 		</div>
 	</nav>
