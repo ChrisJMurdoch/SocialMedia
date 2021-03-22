@@ -77,7 +77,27 @@
 			
 			<!-- users rating in stars and their points total -->
 			<div class="scores">
-				<p><strong>Score:</strong>  10020</p>
+			<!-- users scores are calculated from their number likes, followers and posts -->
+			<%int like=0; %>
+			<%int posts=0; %>
+			<%int followers=0; %>
+			<%int sum=0; %>
+				<% for(Database.LeaderboardPosting score : Database.mostLikes(false)) {%>
+					<% if(score.username.equals(profile)){ %>
+						<% like = score.score; %>
+					<%} %>	
+				<%} %>
+				
+				<% for (Database.Post post : Database.getUserPosts(profile, user.username)) { %>
+					<%posts = posts + 1; %>
+				<%} %>
+				<% for (Database.User u : Database.getFollowers(profile)) { %>
+					<%followers = followers + 1; %>
+				<%} %>
+				<%sum =(like*10)+(posts*5)+(followers*50); %>
+					<p><strong>Score:</strong> <%=sum  %> </p>
+					
+				
                 <p><strong>Rating:</strong> <span class="fa fa-star checked"></span>
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star checked"></span>
