@@ -35,7 +35,7 @@ public class ResetPass extends HttpServlet {
 		} else {
 			System.out.println("Password reset passed.");
 			Emailer.sendEmail(user.email, "Reset your password", "Hello, "+user.username+".  Your reset link is: "+
-				"http://localhost:8080/setpassword?code="+user.reset+"&user="+user.username
+				"http://picturn.herokuapp.com/setpassword?code="+user.reset+"&user="+user.username
 			);
 		}
 		
