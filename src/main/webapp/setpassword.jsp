@@ -30,6 +30,7 @@
 		<input type="hidden" name="user" value="<%=request.getParameter("user")%>"><br>
 		<input type="hidden" name="code" value="<%=request.getParameter("code")%>"><br>
 		<input type="password" autocomplete="off" name="password" placeholder="New Password"><br>
+		<p style="font-size: small; font-style:italic; padding-top: -0.2em;">Passwords must contain 5 or more characters</p>
 		<div class="submit_bar">
 			<input type="submit" value="Set">
 			<a href="/">Cancel</a>

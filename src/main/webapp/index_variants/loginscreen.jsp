@@ -87,6 +87,7 @@
 		<input type="text" autocomplete="off" name="email" placeholder="<%=rEmail%>"><br>
 		<input type="text" autocomplete="off" name="username" placeholder="<%=rUser%>"><br>
 	   	<input type="password" autocomplete="off" name="password" placeholder="<%=rPass%>"><br>
+	   	<p style="font-size: small; font-style:italic; padding-top: -0.2em;">Passwords must contain 5 or more characters</p>
 	   	By creating an account with us, you agree to our <a href="/termsofservice" target="_">Terms of Service</a>.
 	   	<input type="submit" value="Sign Up">
 	</form>
