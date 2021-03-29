@@ -1,16 +1,16 @@
 package security;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class Generation {
-
+	
 	public final static String ALPHANUMERIC =
 		"abcdefghijklmnopqrstuvwxyz" + 
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" + 
 		"0123456789"
 	;
 	
-	private final static Random RANDOM = new Random(System.currentTimeMillis());
+	private final static SecureRandom RANDOM = new SecureRandom();
 	
 	public static String randomString(int length, String charSet) {
 		String s = "";
